@@ -7,6 +7,7 @@ import { useFonts } from '@expo-google-fonts/montserrat'
 import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold } from '@expo-google-fonts/montserrat'
 import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto'
 import VisaGuidanceStyle from '../styles/VisaGuidanceStyle'
+import Chatbot from '../components/Chatbot'
 
 export default function VisaGuidance() {
 
@@ -43,15 +44,19 @@ export default function VisaGuidance() {
                                 <Text style={VisaGuidanceStyle.visaTitle}>{item.visaName}</Text>
                                 <Text style={VisaGuidanceStyle.description}>{item.description}</Text>
 
-                                <TouchableOpacity style={VisaGuidanceStyle.applyButton}>
+                                <TouchableOpacity style={VisaGuidanceStyle.applyButton}
+                                    onPress={() => {
+                                        cs.navigate("visadetailsguidance")
+                                    }}
+                                >
                                     <Text style={VisaGuidanceStyle.applyText}>Apply</Text>
                                 </TouchableOpacity>
                             </View>
-
                         </View>
                     )}
                 />
             </View>
+            <Chatbot />
         </View>
     )
 }

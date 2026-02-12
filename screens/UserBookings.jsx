@@ -54,6 +54,9 @@ export default function UserBookings() {
                             <Text style={UserBookingsStyle.tableCell}>{item.amount}</Text>
                             <TouchableOpacity
                                 style={UserBookingsStyle.actionButton}
+                                onPress={() => {
+                                    cs.navigate("bookinginvoice")
+                                }}
                             >
                                 <Text style={UserBookingsStyle.viewButtonText}>View</Text>
                             </TouchableOpacity>

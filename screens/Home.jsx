@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
 import React, { useState } from 'react'
+import { Ionicons } from "@expo/vector-icons"
 import Sidebar from '../components/Sidebar'
 import Header from '../components/Header'
 import { useNavigation } from '@react-navigation/native'
@@ -7,12 +8,13 @@ import { useFonts } from '@expo-google-fonts/montserrat'
 import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold } from '@expo-google-fonts/montserrat'
 import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto'
 import HomeStyle from '../styles/HomeStyle'
+import Chatbot from '../components/Chatbot'
 
 export default function Home() {
 
     const cs = useNavigation()
     const [isSidebarVisible, setSidebarVisible] = useState(false)
-    
+
 
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
@@ -46,7 +48,12 @@ export default function Home() {
                 <Text style={HomeStyle.bannerTitle}>{packageName}</Text>
                 <Text style={HomeStyle.bannerSub}>{subText}</Text>
             </View>
-            <TouchableOpacity style={HomeStyle.viewAllButton}>
+            <TouchableOpacity
+                style={HomeStyle.viewAllButton}
+                onPress={() => {
+                    cs.navigate("packages")
+                }}
+            >
                 <Text style={HomeStyle.viewAllText}>View Packages</Text>
                 <Image source={require('../assets/images/arrow_righticon.png')} style={HomeStyle.arrowIcon} tintColor={"#fff"} />
             </TouchableOpacity>
@@ -54,12 +61,44 @@ export default function Home() {
     )
 
     return (
-        <ScrollView >
+        <View style={{ flex: 1 }} >
             <Header openSidebar={() => { setSidebarVisible(true) }} />
             <Sidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
 
-            <View style={HomeStyle.container}>
+            <ScrollView style={HomeStyle.container}>
                 <Text style={HomeStyle.title}>M&RC Travel and Tours</Text>
+
+                <View style={HomeStyle.searchRow}>
+                    <View style={HomeStyle.searchBar} >
+                        <Ionicons name="search" size={16} />
+                        <TextInput
+                            style={HomeStyle.searchInput}
+                            placeholder='Search packages'
+                            placeholderTextColor="#777"
+                        />
+                    </View>
+                    <View style={HomeStyle.dropdownGroup}>
+                        <View style={HomeStyle.dropdownButton} >
+                            <Text style={HomeStyle.dropdownText} >Activities</Text>
+                            <Ionicons
+                                name="chevron-down"
+                                size={12}
+                                color="#305797"
+                                style={HomeStyle.dropdownIcon}
+                            />
+                        </View>
+                        <View style={HomeStyle.dropdownButton} >
+                            <Text style={HomeStyle.dropdownText} >Duration</Text>
+                            <Ionicons
+                                name="chevron-down"
+                                size={12}
+                                color="#305797"
+                                style={HomeStyle.dropdownIcon}
+                            />
+                        </View>
+                    </View>
+                </View>
+
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 20 }}>
                     <TravelCard
                         image={require('../assets/images/japan_imagesmall.png')}
@@ -89,7 +128,9 @@ export default function Home() {
 
                 <Text style={HomeStyle.title}>Local Packages</Text>
                 <BannerCard subText="Explore the Philippines" packageName="Explore Local Places" image={require('../assets/images/baguio_imagemedium.png')} />
-            </View>
-        </ScrollView>
+            </ScrollView>
+
+            <Chatbot />
+        </View>
     )
 }

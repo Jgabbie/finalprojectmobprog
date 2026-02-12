@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import DestinationStyles from "../styles/DestinationStyles";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import Chatbot from "../components/Chatbot";
 
 const packages = [
     {
@@ -48,8 +49,6 @@ export default function Packages({ navigation }) {
                 style={DestinationStyles.container}
                 contentContainerStyle={{ paddingBottom: 40 }}
             >
-
-
                 <Text style={DestinationStyles.heroTitle}>Featured packages</Text>
                 <Text style={DestinationStyles.heroSubtitle}>
                     Everyone loves to tour with friends, family, or teammates. We can
@@ -68,11 +67,11 @@ export default function Packages({ navigation }) {
                     <View style={DestinationStyles.dropdownGroup}>
                         <View style={DestinationStyles.dropdownButton}>
                             <Text style={DestinationStyles.dropdownText}>Activities</Text>
-                            <Ionicons name="chevron-down" size={14} color="#2d5fb8" style={DestinationStyles.dropdownIcon} />
+                            <Ionicons name="chevron-down" size={14} color="#305797" style={DestinationStyles.dropdownIcon} />
                         </View>
                         <View style={DestinationStyles.dropdownButton}>
                             <Text style={DestinationStyles.dropdownText}>Duration</Text>
-                            <Ionicons name="chevron-down" size={14} color="#2d5fb8" style={DestinationStyles.dropdownIcon} />
+                            <Ionicons name="chevron-down" size={14} color="#305797" style={DestinationStyles.dropdownIcon} />
                         </View>
                     </View>
                 </View>
@@ -104,6 +103,7 @@ export default function Packages({ navigation }) {
                 ))}
 
             </ScrollView>
+            <Chatbot />
         </View >
 
     );

@@ -1,5 +1,6 @@
-import { View, Text, TouchableOpacity, TextInput, FlatList, Image } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, FlatList, Image, ScrollView } from 'react-native'
 import React, { useState } from 'react'
+import { Ionicons } from "@expo/vector-icons"
 import Sidebar from '../components/Sidebar'
 import Header from '../components/Header'
 import { useNavigation } from '@react-navigation/native'
@@ -7,6 +8,7 @@ import { useFonts } from '@expo-google-fonts/montserrat'
 import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold } from '@expo-google-fonts/montserrat'
 import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto'
 import WishlistStyle from '../styles/WishlistStyle'
+import Chatbot from '../components/Chatbot'
 
 export default function Wishlist() {
 
@@ -28,12 +30,43 @@ export default function Wishlist() {
     ])
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <Header openSidebar={() => { setSidebarVisible(true) }} />
             <Sidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
-            <View style={WishlistStyle.container}>
+            <ScrollView style={WishlistStyle.container}>
 
                 <Text style={WishlistStyle.title}>My Wishlist</Text>
+
+                <View style={WishlistStyle.searchRow}>
+                    <View style={WishlistStyle.searchBar} >
+                        <Ionicons name="search" size={16} />
+                        <TextInput
+                            style={WishlistStyle.searchInput}
+                            placeholder='Search packages'
+                            placeholderTextColor="#777"
+                        />
+                    </View>
+                    <View style={WishlistStyle.dropdownGroup}>
+                        <View style={WishlistStyle.dropdownButton} >
+                            <Text style={WishlistStyle.dropdownText} >Activities</Text>
+                            <Ionicons
+                                name="chevron-down"
+                                size={12}
+                                color="#305797"
+                                style={WishlistStyle.dropdownIcon}
+                            />
+                        </View>
+                        <View style={WishlistStyle.dropdownButton} >
+                            <Text style={WishlistStyle.dropdownText} >Duration</Text>
+                            <Ionicons
+                                name="chevron-down"
+                                size={12}
+                                color="#305797"
+                                style={WishlistStyle.dropdownIcon}
+                            />
+                        </View>
+                    </View>
+                </View>
 
                 <FlatList
                     data={packages}
@@ -66,10 +99,8 @@ export default function Wishlist() {
                         </View>
                     )}
                 />
-            </View>
-
-
-
+            </ScrollView>
+            <Chatbot />
         </View>
     )
 }

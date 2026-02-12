@@ -53,6 +53,9 @@ export default function UserTransactions() {
                             <Text style={UserTransactionStyle.tableCell}>{item.amount}</Text>
                             <TouchableOpacity
                                 style={UserTransactionStyle.actionButton}
+                                onPress={() => {
+                                    cs.navigate("transactionreceipt")
+                                }}
                             >
                                 <Text style={UserTransactionStyle.viewButtonText}>View</Text>
                             </TouchableOpacity>

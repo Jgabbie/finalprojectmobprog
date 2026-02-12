@@ -16,6 +16,9 @@ import PassportGuidanceNew from './screens/PassportGuidanceNew';
 import PassportGuidanceReNew from './screens/PassportGuidanceReNew';
 import PackageDetails from './screens/PackageDetails';
 import Packages from './screens/Packages';
+import BookingInvoice from './screens/BookingInvoice';
+import TransactionReceipt from './screens/TransactionReceipt';
+import VisaDetailsGuidance from './screens/VisaDetailsGuidance';
 
 const MyScreen = createNativeStackNavigator()
 
@@ -36,11 +39,12 @@ export default function App() {
         <MyScreen.Screen name="packages" component={Packages} options={{ headerShown: false }} />
         <MyScreen.Screen name="package-details" component={PackageDetails} options={{ headerShown: false }} />
         <MyScreen.Screen name="visaguidance" component={VisaGuidance} options={{ headerShown: false }} />
+        <MyScreen.Screen name="visadetailsguidance" component={VisaDetailsGuidance} options={{ headerShown: false }} />
         <MyScreen.Screen name="passportguidance" component={PassportGuidance} options={{ headerShown: false }} />
         <MyScreen.Screen name="passportnewguidance" component={PassportGuidanceNew} options={{ headerShown: false }} />
         <MyScreen.Screen name="passportrenewguidance" component={PassportGuidanceReNew} options={{ headerShown: false }} />
-
-
+        <MyScreen.Screen name="bookinginvoice" component={BookingInvoice} options={{ headerShown: false }} />
+        <MyScreen.Screen name="transactionreceipt" component={TransactionReceipt} options={{ headerShown: false }} />
       </MyScreen.Navigator>
     </NavigationContainer>
   );

@@ -7,6 +7,7 @@ import { useFonts } from '@expo-google-fonts/montserrat'
 import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold } from '@expo-google-fonts/montserrat'
 import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto'
 import PassportGuidanceStyle from '../styles/PassportGuidanceStyle'
+import Chatbot from '../components/Chatbot'
 
 export default function PassportGuidance() {
 
@@ -31,7 +32,7 @@ export default function PassportGuidance() {
                 <Text style={PassportGuidanceStyle.title}>Passport Guidance</Text>
 
                 <View style={PassportGuidanceStyle.card}>
-                    <Image style={PassportGuidanceStyle.cardImage} source={require('../assets/images/kyotojapan.jpg')} />
+                    <Image style={PassportGuidanceStyle.cardImage} source={{ uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVTvZoj5yCan1iuNFZkIiiLQQLn7UoihXfFg&s" }} />
                     <View style={PassportGuidanceStyle.cardContent}>
                         <Text style={PassportGuidanceStyle.passportTitle}>New Passport</Text>
                         <Text style={PassportGuidanceStyle.description}>Don't have a passport for travelling overseas?
@@ -49,7 +50,7 @@ export default function PassportGuidance() {
                 </View>
 
                 <View style={PassportGuidanceStyle.card}>
-                    <Image style={PassportGuidanceStyle.cardImage} source={require('../assets/images/kyotojapan.jpg')} />
+                    <Image style={PassportGuidanceStyle.cardImage} source={{ uri: "https://ik.imagekit.io/tvlk/blog/2022/05/philippine-passport.jpg" }} />
                     <View style={PassportGuidanceStyle.cardContent}>
                         <Text style={PassportGuidanceStyle.passportTitle}>Re-New Passport</Text>
                         <Text style={PassportGuidanceStyle.description}>Is your passport about to expire and you have an upcoming international trip?
@@ -66,6 +67,7 @@ export default function PassportGuidance() {
                     </View>
                 </View>
             </ScrollView>
+            <Chatbot />
         </View >
     )
 }
