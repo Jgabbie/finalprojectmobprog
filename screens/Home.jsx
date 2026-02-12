@@ -12,6 +12,7 @@ export default function Home() {
 
     const cs = useNavigation()
     const [isSidebarVisible, setSidebarVisible] = useState(false)
+    
 
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
