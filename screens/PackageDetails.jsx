@@ -1,12 +1,13 @@
 import React, { useMemo, useState } from "react"
-import {View,Text,ScrollView,Image,TouchableOpacity,Modal,} from "react-native"
+import { View, Text, ScrollView, Image, TouchableOpacity, Modal, } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
-import styles from "../styles/DestinationStyles"
-import Colors from "../styles/Colors"
 import { Calendar } from "react-native-calendars"
+import DestinationStyles from "../styles/DestinationStyles"
 import Sidebar from "../components/Sidebar"
+import Header from "../components/Header"
 
-const MODAL_CONTENT = {
+
+const modalDetails = {
   "1": {
     dateDetails: {
       packageLine: "3 Days 2 Nights land arrangement package.",
@@ -62,6 +63,7 @@ const MODAL_CONTENT = {
       hotel: "Ridgewood Hotel",
     },
   },
+
   "2": {
     dateDetails: {
       packageLine: "5 Days 4 Nights international package.",
@@ -115,6 +117,7 @@ const MODAL_CONTENT = {
       hotel: "Maple Boutique Hotel",
     },
   },
+
   "3": {
     dateDetails: {
       packageLine: "4 Days 3 Nights island-hopping package.",
@@ -170,16 +173,16 @@ const MODAL_CONTENT = {
   },
 }
 
-const ADDON_OPTIONS = [
+const addonOptions = [
   { id: "addon-1", label: "In-flight Meals/Snacks" },
-  { id: "addon-2", label: "In-flight Meals" },
+  { id: "addon-2", label: "In-flight Entertainment" },
   { id: "addon-3", label: "In-flight Pillow" },
 ]
 
-const TOUR_OPTIONS = [
-  { id: "tour-1", label: "Base on Package" },
-  { id: "tour-2", label: "Option 2" },
-  { id: "tour-3", label: "Option 3" },
+const tourOptions = [
+  { id: "tour-1", label: "City Tour" },
+  { id: "tour-2", label: "Market Tour" },
+  { id: "tour-3", label: "Museum Tour" },
 ]
 
 const defaultTravelers = {
@@ -189,7 +192,7 @@ const defaultTravelers = {
   senior: 0,
 }
 
-export default function PackageDetails({ route, navigation }) {
+export default function PackageDetails({ route }) {
   const [isSidebarVisible, setSidebarVisible] = useState(false)
 
   const pkg = route?.params?.pkg ?? {
@@ -203,10 +206,11 @@ export default function PackageDetails({ route, navigation }) {
     isInternational: false,
   }
 
-  const modalContent = MODAL_CONTENT[pkg.id] ?? MODAL_CONTENT["1"]
+  const modalContent = modalDetails[pkg.id] ?? modalDetails["1"]
 
   const [activeTab, setActiveTab] = useState("itinerary")
   const [activeModal, setActiveModal] = useState(null)
+
   const [selectedDateKey, setSelectedDateKey] = useState(() =>
     new Date(modalContent.dateDetails.startingDate).toISOString().slice(0, 10)
   )
@@ -228,8 +232,9 @@ export default function PackageDetails({ route, navigation }) {
   const [hotel, setHotel] = useState(() => modalContent.customize.hotel)
   const [addons, setAddons] = useState(["addon-1"])
   const [tours, setTours] = useState(["tour-1"])
+  const [selectedOption, setSelectedOption] = useState('')
 
-  const modalTitle = useMemo(() => {
+  const getModalTitle = () => {
     if (activeModal === "date") return "Choose Date"
     if (activeModal === "available") return "Available Dates"
     if (activeModal === "allin") return "ALL IN OR LAND"
@@ -239,9 +244,10 @@ export default function PackageDetails({ route, navigation }) {
     if (activeModal === "customize") return "Customize"
     if (activeModal === "addons") return "Add-ons"
     if (activeModal === "summary") return "Booking Summary"
+    if (activeModal === "payment") return "Payment"
     if (activeModal === "approval") return "Booking for Approval"
     return ""
-  }, [activeModal])
+  }
 
   const startAvailability = () => {
     setActiveModal(pkg.isInternational ? "available" : "date")
@@ -277,6 +283,10 @@ export default function PackageDetails({ route, navigation }) {
       return
     }
     if (activeModal === "summary") {
+      setActiveModal("payment")
+      return
+    }
+    if (activeModal === "payment") {
       setActiveModal("approval")
       return
     }
@@ -287,7 +297,6 @@ export default function PackageDetails({ route, navigation }) {
 
   const prevModal = () => {
     if (activeModal === "approval") {
-      setActiveModal("summary")
       return
     }
     if (activeModal === "summary") {
@@ -337,9 +346,9 @@ export default function PackageDetails({ route, navigation }) {
     )
   }
 
-  const adjustTraveler = (key, delta) => {
+  const adjustTraveler = (key, num) => {
     setTravelers((prev) => {
-      const nextValue = Math.max(0, prev[key] + delta)
+      const nextValue = Math.max(0, prev[key] + num)
       return { ...prev, [key]: nextValue }
     })
   }
@@ -352,89 +361,67 @@ export default function PackageDetails({ route, navigation }) {
     setItems([...items, id])
   }
 
-  const totalTravelers =
-    travelers.adult + travelers.child + travelers.infant + travelers.senior
+  const totalTravelers = travelers.adult + travelers.child + travelers.infant + travelers.senior
+
+  const PaymentCard = ({ value, logo }) => (
+    <TouchableOpacity
+      style={[
+        DestinationStyles.paymentCard,
+        selectedOption === value && DestinationStyles.paymentCardSelected
+      ]}
+      onPress={() => { setSelectedOption(value) }}
+      activeOpacity={0.8}
+    >
+      <Image source={logo} style={DestinationStyles.payementCardLogo} />
+    </TouchableOpacity>
+  )
 
   return (
-    <View style={styles.detailsContainer}>
-      <Sidebar
-        visible={isSidebarVisible}
-        onClose={() => setSidebarVisible(false)}
-      />
+    <View style={DestinationStyles.detailsContainer}>
+      <Header openSidebar={() => { setSidebarVisible(true) }} />
+      <Sidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
 
-      <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={styles.sideBarButton}
-          onPress={() => setSidebarVisible(true)}
-        >
-          <Image
-            source={require('../materials/sidebar_btn.png')}
-            style={styles.sideBarImage}
-          />
-        </TouchableOpacity>
-
-        <Image
-          source={require('../materials/mrc_logo2.png')}
-          style={styles.logo}
-        />
-
-        <View style={styles.rightIconsContainer}>
-          <TouchableOpacity style={styles.bellButton}>
-            <Image
-              source={require('../materials/bell_icon.png')}
-              style={styles.bellIcon}
-            />
-          </TouchableOpacity>
-
-          <Image
-            source={require('../materials/profile_icon.png')}
-            style={styles.profileIcon}
-          />
-        </View>
-      </View>
-
-      {/* <Header onBack={() => navigation.goBack()} /> */}
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.detailsHeader}>
-          <View style={styles.titleRow}>
-            <Text style={styles.detailsTitle}>{pkg.title}</Text>
-            <View style={styles.daysBadge}>
-              <Text style={styles.daysText}>{pkg.duration}</Text>
+        <View style={DestinationStyles.detailsHeader}>
+          <View style={DestinationStyles.titleRow}>
+            <Text style={DestinationStyles.detailsTitle}>{pkg.title}</Text>
+            <View style={DestinationStyles.daysBadge}>
+              <Text style={DestinationStyles.daysText}>{pkg.duration}</Text>
             </View>
           </View>
-          <Image source={{ uri: pkg.image }} style={styles.heroImage} />
+          <Image source={{ uri: pkg.image }} style={DestinationStyles.heroImage} />
         </View>
 
-        <View style={styles.heroCard}>
-          <Text style={styles.heroDescription}>{pkg.description}</Text>
-          <View style={styles.priceRow}>
+        <View style={DestinationStyles.heroCard}>
+          <Text style={DestinationStyles.heroDescription}>{pkg.description}</Text>
+          <View style={DestinationStyles.priceRow}>
             <View>
-              <Text style={styles.priceLabel}>FROM</Text>
-              <Text style={styles.priceValue}>{pkg.price}</Text>
-              <Text style={styles.priceUnit}>/Adult</Text>
+              <Text style={DestinationStyles.priceLabel}>FROM</Text>
+              <Text style={DestinationStyles.priceValue}>{pkg.price}</Text>
+              <Text style={DestinationStyles.priceUnit}>/Adult</Text>
             </View>
             <TouchableOpacity
-              style={styles.availabilityButton}
+              style={DestinationStyles.availabilityButton}
               onPress={startAvailability}
             >
-              <Text style={styles.availabilityText}>Check Availability</Text>
+              <Text style={DestinationStyles.availabilityText}>Check Availability</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={styles.tabRow}>
+        <View style={DestinationStyles.tabRow}>
           {["itinerary", "inclusions", "terms"].map((tab, index) => (
             <TouchableOpacity
               key={tab}
               style={[
-                styles.tabButton,
+                DestinationStyles.tabButton,
                 index === 2 && { borderRightWidth: 0 },
-                activeTab === tab && styles.tabButtonActive,
+                activeTab === tab && DestinationStyles.tabButtonActive,
               ]}
               onPress={() => setActiveTab(tab)}
             >
-              <Text style={styles.tabText}>
+              <Text style={DestinationStyles.tabText}>
                 {tab === "itinerary" && "Itinerary"}
                 {tab === "inclusions" && "Inclusions & Exclusions"}
                 {tab === "terms" && "Terms & Conditions"}
@@ -443,31 +430,30 @@ export default function PackageDetails({ route, navigation }) {
           ))}
         </View>
 
-        <View style={styles.sectionBody}>
+        <View style={DestinationStyles.sectionBody}>
           {activeTab === "itinerary" && (
             <>
-              <Text style={styles.sectionTitle}>DAY 1</Text>
-              <Text style={styles.sectionText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              <Text style={DestinationStyles.sectionTitle}>DAY 1</Text>
+              <Text style={DestinationStyles.sectionText}>
+                Arrive at the Destination and Check-in to the Hotel
               </Text>
             </>
           )}
           {activeTab === "inclusions" && (
             <>
-              <Text style={styles.sectionTitle}>INCLUSIONS</Text>
-              <Text style={styles.sectionText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              <Text style={DestinationStyles.sectionTitle}>INCLUSIONS AND EXCLUSIONS</Text>
+              <Text style={DestinationStyles.sectionText}>
+
+                Inclusions: Breakfast Buffet
+                Exclusions: Tips for the Tour Guide
               </Text>
             </>
           )}
           {activeTab === "terms" && (
             <>
-              <Text style={styles.sectionTitle}>TERMS AND CONDITIONS</Text>
-              <Text style={styles.sectionText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              <Text style={DestinationStyles.sectionTitle}>TERMS AND CONDITIONS</Text>
+              <Text style={DestinationStyles.sectionText}>
+                No late cancellations
               </Text>
             </>
           )}
@@ -475,48 +461,48 @@ export default function PackageDetails({ route, navigation }) {
       </ScrollView>
 
       <Modal visible={!!activeModal} transparent animationType="fade">
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalCard}>
-            <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>{modalTitle}</Text>
+        <View style={DestinationStyles.modalOverlay}>
+          <View style={DestinationStyles.modalCard}>
+            <View style={DestinationStyles.modalHeader}>
+              <Text style={DestinationStyles.modalTitle}>{getModalTitle()}</Text>
               <TouchableOpacity onPress={closeModal}>
                 <Ionicons name="close" size={18} color="#333" />
               </TouchableOpacity>
             </View>
 
-            <View style={styles.modalBody}>
+            <View style={DestinationStyles.modalBody}>
               {activeModal === "date" && (
                 <>
-                  <View style={styles.calendarBox}>
-                    <Text style={styles.modalParagraph}>Choose Date</Text>
+                  <View style={DestinationStyles.calendarBox}>
+                    <Text style={DestinationStyles.modalParagraph}>Choose Date</Text>
                     <Calendar
                       current={selectedDateKey}
                       onDayPress={handleDateSelect}
                       markedDates={{
                         [selectedDateKey]: {
                           selected: true,
-                          selectedColor: Colors.primary,
+                          selectedColor: "#305797",
                         },
                       }}
                       theme={{
-                        arrowColor: Colors.primary,
-                        todayTextColor: Colors.primary,
+                        arrowColor: "#305797",
+                        todayTextColor: "#305797",
                         textMonthFontWeight: "700",
                         textDayHeaderFontWeight: "600",
                       }}
-                      style={styles.calendar}
+                      style={DestinationStyles.calendar}
                     />
                   </View>
-                  <Text style={styles.modalSubTitle}>Package Details</Text>
-                  <View style={styles.modalBox}>
-                    <Text style={styles.modalParagraph}>{pkg.title}</Text>
-                    <Text style={styles.modalParagraph}>
+                  <Text style={DestinationStyles.modalSubTitle}>Package Details</Text>
+                  <View style={DestinationStyles.modalBox}>
+                    <Text style={DestinationStyles.modalParagraph}>{pkg.title}</Text>
+                    <Text style={DestinationStyles.modalParagraph}>
                       {modalContent.dateDetails.packageLine}
                     </Text>
-                    <Text style={styles.modalParagraph}>
+                    <Text style={DestinationStyles.modalParagraph}>
                       Starting Date: {selectedDate}
                     </Text>
-                    <Text style={styles.modalParagraph}>
+                    <Text style={DestinationStyles.modalParagraph}>
                       Available Time: {modalContent.dateDetails.availableTime}
                     </Text>
                   </View>
@@ -528,18 +514,18 @@ export default function PackageDetails({ route, navigation }) {
                   {modalContent.availableDates.map((option) => (
                     <TouchableOpacity
                       key={option.id}
-                      style={styles.cardOption}
+                      style={DestinationStyles.cardOption}
                       onPress={() => setAvailableDateId(option.id)}
                     >
-                      <View style={styles.radioRow}>
-                        <View style={styles.radioOuter}>
+                      <View style={DestinationStyles.radioRow}>
+                        <View style={DestinationStyles.radioOuter}>
                           {availableDateId === option.id && (
-                            <View style={styles.radioInner} />
+                            <View style={DestinationStyles.radioInner} />
                           )}
                         </View>
-                        <Text style={styles.cardOptionTitle}>{option.range}</Text>
+                        <Text style={DestinationStyles.cardOptionTitle}>{option.range}</Text>
                       </View>
-                      <Text style={styles.cardOptionText}>{option.note}</Text>
+                      <Text style={DestinationStyles.cardOptionText}>{option.note}</Text>
                     </TouchableOpacity>
                   ))}
                 </>
@@ -548,30 +534,30 @@ export default function PackageDetails({ route, navigation }) {
               {activeModal === "allin" && (
                 <>
                   <TouchableOpacity
-                    style={styles.cardOption}
+                    style={DestinationStyles.cardOption}
                     onPress={() => setAllInLand("all-in")}
                   >
                     <Image
                       source={{ uri: modalContent.allIn.image }}
-                      style={styles.optionImage}
+                      style={DestinationStyles.optionImage}
                     />
-                    <Text style={styles.cardOptionTitle}>
+                    <Text style={DestinationStyles.cardOptionTitle}>
                       {modalContent.allIn.title}
                     </Text>
-                    <Text style={styles.cardOptionText}>{modalContent.allIn.text}</Text>
+                    <Text style={DestinationStyles.cardOptionText}>{modalContent.allIn.text}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={styles.cardOption}
+                    style={DestinationStyles.cardOption}
                     onPress={() => setAllInLand("land")}
                   >
                     <Image
                       source={{ uri: modalContent.land.image }}
-                      style={styles.optionImage}
+                      style={DestinationStyles.optionImage}
                     />
-                    <Text style={styles.cardOptionTitle}>
+                    <Text style={DestinationStyles.cardOptionTitle}>
                       {modalContent.land.title}
                     </Text>
-                    <Text style={styles.cardOptionText}>{modalContent.land.text}</Text>
+                    <Text style={DestinationStyles.cardOptionText}>{modalContent.land.text}</Text>
                   </TouchableOpacity>
                 </>
               )}
@@ -579,30 +565,30 @@ export default function PackageDetails({ route, navigation }) {
               {activeModal === "fixed" && (
                 <>
                   <TouchableOpacity
-                    style={styles.cardOption}
+                    style={DestinationStyles.cardOption}
                     onPress={() => setFixedCustom("fixed")}
                   >
                     <Image
                       source={{ uri: modalContent.fixed.image }}
-                      style={styles.optionImage}
+                      style={DestinationStyles.optionImage}
                     />
-                    <Text style={styles.cardOptionTitle}>
+                    <Text style={DestinationStyles.cardOptionTitle}>
                       {modalContent.fixed.title}
                     </Text>
-                    <Text style={styles.cardOptionText}>{modalContent.fixed.text}</Text>
+                    <Text style={DestinationStyles.cardOptionText}>{modalContent.fixed.text}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={styles.cardOption}
+                    style={DestinationStyles.cardOption}
                     onPress={() => setFixedCustom("custom")}
                   >
                     <Image
                       source={{ uri: modalContent.custom.image }}
-                      style={styles.optionImage}
+                      style={DestinationStyles.optionImage}
                     />
-                    <Text style={styles.cardOptionTitle}>
+                    <Text style={DestinationStyles.cardOptionTitle}>
                       {modalContent.custom.title}
                     </Text>
-                    <Text style={styles.cardOptionText}>{modalContent.custom.text}</Text>
+                    <Text style={DestinationStyles.cardOptionText}>{modalContent.custom.text}</Text>
                   </TouchableOpacity>
                 </>
               )}
@@ -610,116 +596,116 @@ export default function PackageDetails({ route, navigation }) {
               {activeModal === "solo" && (
                 <>
                   <TouchableOpacity
-                    style={styles.cardOption}
+                    style={DestinationStyles.cardOption}
                     onPress={() => setSoloGrouped("solo")}
                   >
                     <Image
                       source={{ uri: modalContent.solo.image }}
-                      style={styles.optionImage}
+                      style={DestinationStyles.optionImage}
                     />
-                    <Text style={styles.cardOptionTitle}>
+                    <Text style={DestinationStyles.cardOptionTitle}>
                       {modalContent.solo.title}
                     </Text>
-                    <Text style={styles.cardOptionText}>{modalContent.solo.text}</Text>
+                    <Text style={DestinationStyles.cardOptionText}>{modalContent.solo.text}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={styles.cardOption}
+                    style={DestinationStyles.cardOption}
                     onPress={() => setSoloGrouped("group")}
                   >
                     <Image
                       source={{ uri: modalContent.group.image }}
-                      style={styles.optionImage}
+                      style={DestinationStyles.optionImage}
                     />
-                    <Text style={styles.cardOptionTitle}>
+                    <Text style={DestinationStyles.cardOptionTitle}>
                       {modalContent.group.title}
                     </Text>
-                    <Text style={styles.cardOptionText}>{modalContent.group.text}</Text>
+                    <Text style={DestinationStyles.cardOptionText}>{modalContent.group.text}</Text>
                   </TouchableOpacity>
                 </>
               )}
 
               {activeModal === "travelers" && (
-                <View style={styles.modalBox}>
-                  <View style={styles.travelerRow}>
+                <View style={DestinationStyles.modalBox}>
+                  <View style={DestinationStyles.travelerRow}>
                     <View>
-                      <Text style={styles.travelerLabel}>Adult</Text>
-                      <Text style={styles.travelerSub}>
+                      <Text style={DestinationStyles.travelerLabel}>Adult</Text>
+                      <Text style={DestinationStyles.travelerSub}>
                         Age 18 years and above
                       </Text>
                     </View>
-                    <View style={styles.counter}>
+                    <View style={DestinationStyles.counter}>
                       <TouchableOpacity
-                        style={styles.counterButton}
+                        style={DestinationStyles.counterButton}
                         onPress={() => adjustTraveler("adult", -1)}
                       >
                         <Text>-</Text>
                       </TouchableOpacity>
-                      <Text style={styles.counterValue}>{travelers.adult}</Text>
+                      <Text style={DestinationStyles.counterValue}>{travelers.adult}</Text>
                       <TouchableOpacity
-                        style={styles.counterButton}
+                        style={DestinationStyles.counterButton}
                         onPress={() => adjustTraveler("adult", 1)}
                       >
                         <Text>+</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
-                  <View style={styles.travelerRow}>
+                  <View style={DestinationStyles.travelerRow}>
                     <View>
-                      <Text style={styles.travelerLabel}>Child</Text>
-                      <Text style={styles.travelerSub}>Age 2-17 years old</Text>
+                      <Text style={DestinationStyles.travelerLabel}>Child</Text>
+                      <Text style={DestinationStyles.travelerSub}>Age 2-17 years old</Text>
                     </View>
-                    <View style={styles.counter}>
+                    <View style={DestinationStyles.counter}>
                       <TouchableOpacity
-                        style={styles.counterButton}
+                        style={DestinationStyles.counterButton}
                         onPress={() => adjustTraveler("child", -1)}
                       >
                         <Text>-</Text>
                       </TouchableOpacity>
-                      <Text style={styles.counterValue}>{travelers.child}</Text>
+                      <Text style={DestinationStyles.counterValue}>{travelers.child}</Text>
                       <TouchableOpacity
-                        style={styles.counterButton}
+                        style={DestinationStyles.counterButton}
                         onPress={() => adjustTraveler("child", 1)}
                       >
                         <Text>+</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
-                  <View style={styles.travelerRow}>
+                  <View style={DestinationStyles.travelerRow}>
                     <View>
-                      <Text style={styles.travelerLabel}>Infant</Text>
-                      <Text style={styles.travelerSub}>Age 0-23 months</Text>
+                      <Text style={DestinationStyles.travelerLabel}>Infant</Text>
+                      <Text style={DestinationStyles.travelerSub}>Age 0-23 months</Text>
                     </View>
-                    <View style={styles.counter}>
+                    <View style={DestinationStyles.counter}>
                       <TouchableOpacity
-                        style={styles.counterButton}
+                        style={DestinationStyles.counterButton}
                         onPress={() => adjustTraveler("infant", -1)}
                       >
                         <Text>-</Text>
                       </TouchableOpacity>
-                      <Text style={styles.counterValue}>{travelers.infant}</Text>
+                      <Text style={DestinationStyles.counterValue}>{travelers.infant}</Text>
                       <TouchableOpacity
-                        style={styles.counterButton}
+                        style={DestinationStyles.counterButton}
                         onPress={() => adjustTraveler("infant", 1)}
                       >
                         <Text>+</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
-                  <View style={styles.travelerRow}>
+                  <View style={DestinationStyles.travelerRow}>
                     <View>
-                      <Text style={styles.travelerLabel}>Senior/PWD</Text>
-                      <Text style={styles.travelerSub}>Age 60+ or with ID</Text>
+                      <Text style={DestinationStyles.travelerLabel}>Senior/PWD</Text>
+                      <Text style={DestinationStyles.travelerSub}>Age 60+ or with ID</Text>
                     </View>
-                    <View style={styles.counter}>
+                    <View style={DestinationStyles.counter}>
                       <TouchableOpacity
-                        style={styles.counterButton}
+                        style={DestinationStyles.counterButton}
                         onPress={() => adjustTraveler("senior", -1)}
                       >
                         <Text>-</Text>
                       </TouchableOpacity>
-                      <Text style={styles.counterValue}>{travelers.senior}</Text>
+                      <Text style={DestinationStyles.counterValue}>{travelers.senior}</Text>
                       <TouchableOpacity
-                        style={styles.counterButton}
+                        style={DestinationStyles.counterButton}
                         onPress={() => adjustTraveler("senior", 1)}
                       >
                         <Text>+</Text>
@@ -731,51 +717,51 @@ export default function PackageDetails({ route, navigation }) {
 
               {activeModal === "customize" && (
                 <>
-                  <View style={styles.selectRow}>
-                    <Text style={styles.modalParagraph}>Select your Airlines...</Text>
-                    <Text style={styles.modalParagraph}>{airline}</Text>
+                  <View style={DestinationStyles.selectRow}>
+                    <Text style={DestinationStyles.modalParagraph}>Select your Airlines...</Text>
+                    <Text style={DestinationStyles.modalParagraph}>{airline}</Text>
                   </View>
-                  <View style={styles.selectRow}>
-                    <Text style={styles.modalParagraph}>Select your Hotel...</Text>
-                    <Text style={styles.modalParagraph}>{hotel}</Text>
+                  <View style={DestinationStyles.selectRow}>
+                    <Text style={DestinationStyles.modalParagraph}>Select your Hotel...</Text>
+                    <Text style={DestinationStyles.modalParagraph}>{hotel}</Text>
                   </View>
                 </>
               )}
 
               {activeModal === "addons" && (
                 <>
-                  <View style={styles.modalBox}>
-                    <Text style={styles.modalSubTitle}>Flight Add-ons</Text>
-                    {ADDON_OPTIONS.map((option) => (
+                  <View style={DestinationStyles.modalBox}>
+                    <Text style={DestinationStyles.modalSubTitle}>Flight Add-ons</Text>
+                    {addonOptions.map((option) => (
                       <TouchableOpacity
                         key={option.id}
-                        style={styles.checkboxRow}
+                        style={DestinationStyles.checkboxRow}
                         onPress={() => toggleItem(addons, setAddons, option.id)}
                       >
-                        <View style={styles.checkbox}>
+                        <View style={DestinationStyles.checkbox}>
                           {addons.includes(option.id) && (
-                            <View style={styles.checkboxFill} />
+                            <View style={DestinationStyles.checkboxFill} />
                           )}
                         </View>
-                        <Text style={styles.checkboxLabel}>{option.label}</Text>
+                        <Text style={DestinationStyles.checkboxLabel}>{option.label}</Text>
                       </TouchableOpacity>
                     ))}
                   </View>
-                  <View style={[styles.modalBox, { marginTop: 12 }]}
+                  <View style={[DestinationStyles.modalBox, { marginTop: 12 }]}
                   >
-                    <Text style={styles.modalSubTitle}>Optional Tours</Text>
-                    {TOUR_OPTIONS.map((option) => (
+                    <Text style={DestinationStyles.modalSubTitle}>Optional Tours</Text>
+                    {tourOptions.map((option) => (
                       <TouchableOpacity
                         key={option.id}
-                        style={styles.checkboxRow}
+                        style={DestinationStyles.checkboxRow}
                         onPress={() => toggleItem(tours, setTours, option.id)}
                       >
-                        <View style={styles.checkbox}>
+                        <View style={DestinationStyles.checkbox}>
                           {tours.includes(option.id) && (
-                            <View style={styles.checkboxFill} />
+                            <View style={DestinationStyles.checkboxFill} />
                           )}
                         </View>
-                        <Text style={styles.checkboxLabel}>{option.label}</Text>
+                        <Text style={DestinationStyles.checkboxLabel}>{option.label}</Text>
                       </TouchableOpacity>
                     ))}
                   </View>
@@ -783,62 +769,141 @@ export default function PackageDetails({ route, navigation }) {
               )}
 
               {activeModal === "summary" && (
-                <View style={styles.modalBox}>
-                  <Text style={styles.summaryText}>Package: {pkg.title}</Text>
-                  <Text style={styles.summaryText}>
+                <View style={DestinationStyles.modalBox}>
+                  <Text style={DestinationStyles.summaryText}>Package: {pkg.title}</Text>
+                  <Text style={DestinationStyles.summaryText}>
                     Date: {pkg.isInternational ? "Jan. 21" : selectedDate}
                   </Text>
-                  <Text style={styles.summaryText}>
+                  <Text style={DestinationStyles.summaryText}>
                     All in or Land: {allInLand === "all-in" ? "All in" : "Land"}
                   </Text>
-                  <Text style={styles.summaryText}>
+                  <Text style={DestinationStyles.summaryText}>
                     Fixed or Custom: {fixedCustom === "fixed" ? "Fixed" : "Custom"}
                   </Text>
-                  <Text style={styles.summaryText}>
+                  <Text style={DestinationStyles.summaryText}>
                     Solo or Grouped: {soloGrouped === "solo" ? "Solo" : "Grouped"}
                   </Text>
-                  <Text style={styles.summaryText}>
+                  <Text style={DestinationStyles.summaryText}>
                     Travelers: {totalTravelers}
                   </Text>
-                  <Text style={styles.summaryText}>Airlines: {airline}</Text>
-                  <Text style={styles.summaryText}>Hotel: {hotel}</Text>
-                  <Text style={styles.summaryText}>
+                  <Text style={DestinationStyles.summaryText}>Airlines: {airline}</Text>
+                  <Text style={DestinationStyles.summaryText}>Hotel: {hotel}</Text>
+                  <Text style={DestinationStyles.summaryText}>
                     Flight Add-ons: {addons.length} selected
                   </Text>
-                  <Text style={styles.summaryText}>
+                  <Text style={DestinationStyles.summaryText}>
                     Optional Tours: {tours.length} selected
                   </Text>
-                  <Text style={styles.summaryWarning}>
+                  <Text style={DestinationStyles.summaryWarning}>
                     MUST READ! Please double check everything before confirming.
                   </Text>
                 </View>
               )}
 
+              {activeModal === "payment" && (
+                <View style={DestinationStyles.modalBox}>
+                  <Text style={DestinationStyles.paymentCard}>Payment Method</Text>
+                  <Text style={DestinationStyles.paymentSectionTitle}>E-Wallet</Text>
+                  <View style={DestinationStyles.paymentCardRow}>
+                    <PaymentCard
+                      value="gcash"
+                      logo={require('../assets/images/GCashLogo.png')}
+                    />
+
+                    <PaymentCard
+                      value="paypal"
+                      logo={require('../assets/images/PayPalLogo.png')}
+                    />
+                  </View>
+
+                  <Text style={DestinationStyles.paymentSectionTitle}>Bank</Text>
+
+                  <View style={DestinationStyles.paymentCardRow}>
+                    <PaymentCard
+                      value="bdo"
+                      logo={require('../assets/images/BDOLogo.png')}
+                    />
+
+                    <PaymentCard
+                      value="metrobank"
+                      logo={require('../assets/images/MetroBankLogo.png')}
+                    />
+                  </View>
+
+                  <View style={DestinationStyles.paymentSummaryCard}>
+                    <Text style={DestinationStyles.paymentSummaryTitle}>
+                      You are about to pay
+                    </Text>
+
+                    <View style={DestinationStyles.paymentSummaryRow}>
+                      <Text style={DestinationStyles.paymentLabel}>
+                        Tour Package
+                      </Text>
+                      <Text style={DestinationStyles.paymentValue}>
+                        {pkg.title}
+                      </Text>
+                    </View>
+
+                    <View style={DestinationStyles.paymentSummaryRow}>
+                      <Text style={DestinationStyles.paymentLabel}>
+                        Payment Plan
+                      </Text>
+                      <Text style={DestinationStyles.paymentValue}>
+                        Installment - Down Payment
+                      </Text>
+                    </View>
+
+                    <View style={DestinationStyles.paymentDivider} />
+
+                    <Text style={DestinationStyles.paymentSummaryAmount}>
+                      {pkg.price}
+                    </Text>
+
+                    <Text style={DestinationStyles.paymentSummarySubtext}>
+                      Amount to be charged using selected payment method
+                    </Text>
+                  </View>
+
+                  <TouchableOpacity
+                    style={[
+                      DestinationStyles.button,
+                      !selectedOption && { opacity: 0.5 }
+                    ]}
+                    disabled={!selectedOption}
+                    onPress={() => {
+                      setModalVisible(true)
+                    }}
+                  >
+                    <Text style={DestinationStyles.buttonText}>Continue</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+
               {activeModal === "approval" && (
-                <View style={styles.approvalCard}>
-                  <View style={styles.approvalIcon}>
+                <View style={DestinationStyles.approvalCard}>
+                  <View style={DestinationStyles.approvalIcon}>
                     <Ionicons name="checkmark" size={28} color="#fff" />
                   </View>
-                  <Text style={styles.approvalText}>Booking for Approval</Text>
+                  <Text style={DestinationStyles.approvalText}>Booking Successful</Text>
                 </View>
               )}
             </View>
 
             {activeModal !== "approval" && (
-              <View style={styles.modalButtonRow}>
-                <TouchableOpacity style={styles.primaryButton} onPress={nextModal}>
-                  <Text style={styles.primaryText}>Proceed</Text>
+              <View style={DestinationStyles.modalButtonRow}>
+                <TouchableOpacity style={DestinationStyles.primaryButton} onPress={nextModal}>
+                  <Text style={DestinationStyles.primaryText}>Proceed</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.dangerButton} onPress={prevModal}>
-                  <Text style={styles.primaryText}>Back</Text>
+                <TouchableOpacity style={DestinationStyles.dangerButton} onPress={prevModal}>
+                  <Text style={DestinationStyles.primaryText}>Back</Text>
                 </TouchableOpacity>
               </View>
             )}
 
             {activeModal === "approval" && (
-              <View style={styles.modalButtonRow}>
-                <TouchableOpacity style={styles.primaryButton} onPress={closeModal}>
-                  <Text style={styles.primaryText}>Done</Text>
+              <View style={DestinationStyles.modalButtonRow}>
+                <TouchableOpacity style={DestinationStyles.primaryButton} onPress={closeModal}>
+                  <Text style={DestinationStyles.primaryText}>Done</Text>
                 </TouchableOpacity>
               </View>
             )}

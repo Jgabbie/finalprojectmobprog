@@ -1,8 +1,11 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import HeaderStyle from '../styles/HeaderStyle'
+import { useNavigation } from '@react-navigation/native'
 
 export default function Header({ openSidebar }) {
+    const cs = useNavigation()
+
     return (
         <View style={HeaderStyle.headerContainer}>
             <TouchableOpacity
@@ -23,7 +26,9 @@ export default function Header({ openSidebar }) {
             />
 
             <View style={HeaderStyle.rightIconsContainer}>
-                <TouchableOpacity style={HeaderStyle.bellButton}>
+                <TouchableOpacity style={HeaderStyle.bellButton} onPress={() => {
+                    cs.navigate("notifications")
+                }}>
                     <Image
                         source={require('../assets/images/bell_icon.png')}
                         style={HeaderStyle.bellIcon}

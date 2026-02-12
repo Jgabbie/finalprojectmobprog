@@ -15,13 +15,14 @@ const WishlistStyle = StyleSheet.create({
     card: {
         backgroundColor: "#fff",
         borderRadius: 12,
+        borderWidth: 1,
         marginBottom: 20,
         overflow: "hidden",
         elevation: 4
     },
     cardImage: {
         width: "100%",
-        height: 180,
+        height: 248,
         resizeMode: "cover"
     },
     cardContent: {

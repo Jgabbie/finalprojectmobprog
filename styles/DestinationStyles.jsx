@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
-import Colors from "./Colors";
 
-export default StyleSheet.create({
+const DestinationStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
@@ -56,13 +55,13 @@ export default StyleSheet.create({
   heroTitle: {
     fontSize: 22,
     fontWeight: "700",
-    color: Colors.primary,
+    color: "#305797",
     textAlign: "center",
     marginTop: 10,
   },
   heroSubtitle: {
     fontSize: 12,
-    color: Colors.muted,
+    color: "#777",
     textAlign: "center",
     marginTop: 6,
     marginBottom: 12,
@@ -89,7 +88,7 @@ export default StyleSheet.create({
     flex: 1,
     marginLeft: 8,
     fontSize: 13,
-    color: Colors.text,
+    color: "#333",
   },
   dropdownGroup: {
     flexDirection: "row",
@@ -108,7 +107,7 @@ export default StyleSheet.create({
   },
   dropdownText: {
     fontSize: 12,
-    color: Colors.primary,
+    color: "#305797",
     fontWeight: "600",
   },
   dropdownIcon: {
@@ -133,18 +132,18 @@ export default StyleSheet.create({
   packageTitle: {
     fontSize: 16,
     fontWeight: "700",
-    color: Colors.primary,
+    color: "#305797",
     textAlign: "center",
   },
   packageDescription: {
     fontSize: 12,
-    color: Colors.muted,
+    color: "#777",
     marginTop: 6,
     textAlign: "center",
   },
   viewDetailsButton: {
     marginTop: 12,
-    backgroundColor: Colors.primary,
+    backgroundColor: "#305797",
     alignSelf: "center",
     paddingHorizontal: 22,
     paddingVertical: 8,
@@ -169,7 +168,7 @@ export default StyleSheet.create({
   },
   metaText: {
     fontSize: 12,
-    color: Colors.text,
+    color: "#333",
   },
   detailsContainer: {
     flex: 1,
@@ -187,10 +186,10 @@ export default StyleSheet.create({
   detailsTitle: {
     fontSize: 20,
     fontWeight: "700",
-    color: Colors.primary,
+    color: "#305797",
   },
   daysBadge: {
-    backgroundColor: Colors.primary,
+    backgroundColor: "#305797",
     borderRadius: 6,
     paddingHorizontal: 10,
     paddingVertical: 6,
@@ -219,7 +218,7 @@ export default StyleSheet.create({
   },
   heroDescription: {
     fontSize: 12,
-    color: Colors.muted,
+    color: "#777",
     textAlign: "center",
   },
   priceRow: {
@@ -230,19 +229,19 @@ export default StyleSheet.create({
   },
   priceLabel: {
     fontSize: 11,
-    color: Colors.muted,
+    color: "#777",
   },
   priceValue: {
     fontSize: 22,
     fontWeight: "700",
-    color: Colors.primary,
+    color: "#305797",
   },
   priceUnit: {
     fontSize: 11,
-    color: Colors.muted,
+    color: "#777",
   },
   availabilityButton: {
-    backgroundColor: Colors.primary,
+    backgroundColor: "#305797",
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 16,
@@ -254,7 +253,7 @@ export default StyleSheet.create({
   },
   tabRow: {
     flexDirection: "row",
-    backgroundColor: Colors.primary,
+    backgroundColor: "#305797",
     marginTop: 12,
   },
   tabButton: {
@@ -279,12 +278,12 @@ export default StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: "700",
-    color: Colors.primary,
+    color: "#305797",
     marginBottom: 6,
   },
   sectionText: {
     fontSize: 12,
-    color: Colors.text,
+    color: "#333",
     lineHeight: 18,
   },
   modalOverlay: {
@@ -298,7 +297,7 @@ export default StyleSheet.create({
     borderRadius: 14,
     padding: 14,
     borderWidth: 2,
-    borderColor: Colors.primary,
+    borderColor: "#305797",
   },
   modalHeader: {
     flexDirection: "row",
@@ -308,20 +307,20 @@ export default StyleSheet.create({
   modalTitle: {
     fontSize: 16,
     fontWeight: "700",
-    color: Colors.primary,
+    color: "#305797",
   },
   modalBody: {
     marginTop: 12,
   },
   modalBox: {
     borderWidth: 2,
-    borderColor: Colors.primary,
+    borderColor: "#305797",
     borderRadius: 10,
     padding: 10,
   },
   calendarBox: {
     borderWidth: 2,
-    borderColor: Colors.primary,
+    borderColor: "#305797",
     borderRadius: 10,
     padding: 10,
     overflow: "hidden",
@@ -332,13 +331,13 @@ export default StyleSheet.create({
   modalSubTitle: {
     fontSize: 13,
     fontWeight: "700",
-    color: Colors.primary,
+    color: "#305797",
     textAlign: "center",
     marginTop: 12,
   },
   modalParagraph: {
     fontSize: 11,
-    color: Colors.text,
+    color: "#333",
     textAlign: "center",
     marginTop: 6,
     lineHeight: 16,
@@ -349,7 +348,7 @@ export default StyleSheet.create({
     marginTop: 14,
   },
   primaryButton: {
-    backgroundColor: Colors.primary,
+    backgroundColor: "#305797",
     paddingHorizontal: 20,
     paddingVertical: 8,
     borderRadius: 18,
@@ -380,11 +379,11 @@ export default StyleSheet.create({
   cardOptionTitle: {
     fontSize: 13,
     fontWeight: "700",
-    color: Colors.primary,
+    color: "#305797",
   },
   cardOptionText: {
     fontSize: 11,
-    color: Colors.text,
+    color: "#333",
     marginTop: 4,
     lineHeight: 16,
   },
@@ -404,7 +403,7 @@ export default StyleSheet.create({
     height: 18,
     borderRadius: 9,
     borderWidth: 2,
-    borderColor: Colors.primary,
+    borderColor: "#305797",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -412,7 +411,7 @@ export default StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: Colors.primary,
+    backgroundColor: "#305797",
   },
   travelerRow: {
     flexDirection: "row",
@@ -424,11 +423,11 @@ export default StyleSheet.create({
   travelerLabel: {
     fontSize: 12,
     fontWeight: "600",
-    color: Colors.text,
+    color: "#333",
   },
   travelerSub: {
     fontSize: 10,
-    color: Colors.muted,
+    color: "#777",
   },
   counter: {
     flexDirection: "row",
@@ -474,16 +473,16 @@ export default StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 2,
-    backgroundColor: Colors.primary,
+    backgroundColor: "#305797",
   },
   checkboxLabel: {
     fontSize: 12,
-    color: Colors.text,
+    color: "#333",
     textAlign: "left",
   },
   summaryText: {
     fontSize: 12,
-    color: Colors.text,
+    color: "#333",
     marginBottom: 4,
   },
   summaryWarning: {
@@ -508,6 +507,89 @@ export default StyleSheet.create({
     marginTop: 12,
     fontSize: 16,
     fontWeight: "700",
-    color: Colors.primary,
+    color: "#305797",
   },
+  paymentTitle: {
+    fontSize: 18,
+    fontFamily: "Montserrat_700Bold",
+    marginBottom: 20
+  },
+  paymentSectionTitle: {
+    fontSize: 14,
+    fontFamily: "Montserrat_700Bold",
+    marginTop: 20,
+    marginBottom: 10,
+    color: "#305797"
+  },
+  paymentCardRow: {
+    flexDirection: "row",
+    gap: 12
+  },
+  paymentCard: {
+    flex: 1,
+    height: 120,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    backgroundColor: "center",
+    alignItems: "center",
+    elevation: 2
+  },
+  paymentCardSelected: {
+    borderColor: "#305797",
+    borderWidth: 2,
+    backgroundColor: "#F0F6FF"
+  },
+  payementCardLogo: {
+    width: 140,
+    height: 100,
+  },
+  paymentSumamryCard: {
+    marginTop: 30,
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: "#F5F8FF",
+    borderWidth: 1,
+    borderColor: "#305797"
+  },
+  paymentSummaryTitle: {
+    fontFamily: "Montserrat_700Bold",
+    fontSize: 14,
+    color: "#305797",
+    marginBottom: 6
+  },
+  paymentSummaryAmount: {
+    fontFamily: "Montserrat_700Bold",
+    fontSize: 22,
+    color: "#305797",
+    marginBottom: 4
+  },
+  paymentSummarySubtext: {
+    fontFamily: "Roboto_400Regular",
+    fontSize: 12,
+    color: "#555"
+  },
+  paymentSummaryRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 8
+  },
+  paymentlabel: {
+    fontFamily: "Roboto_400Regular",
+    fontSize: 13,
+    color: "#3b3b3b"
+  },
+  paymentValue: {
+    fontFamily: "Montserrat_500Medium",
+    fontSize: 13,
+    color: "#222"
+  },
+  paymentDivider: {
+    height: 1,
+    backgroundColor: "DDE3F0",
+    marginVertical: 12
+  }
+
 })
+
+export default DestinationStyles

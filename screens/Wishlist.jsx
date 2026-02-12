@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, TextInput, FlatList, Image } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, FlatList, Image } from 'react-native'
 import React, { useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import Header from '../components/Header'
@@ -23,8 +23,8 @@ export default function Wishlist() {
     })
 
     const [packages, setBookings] = useState([
-        { id: "1", image: require('../assets/images/japan_imagesmall.png'), packageName: "Japan Tour Package", oldprice: "30000", newprice: "24000", discount: "30%" },
-        { id: "2", image: require('../assets/images/japan_imagesmall.png'), packageName: "Japan Tour Package", oldprice: "30000", newprice: "24000", discount: "30%" },
+        { id: "1", image: require('../assets/images/kyotojapan.jpg'), packageName: "Japan Tour Package", oldprice: "30000", newprice: "24000", discount: "30%" },
+        { id: "2", image: require('../assets/images/kyotojapan.jpg'), packageName: "Japan Tour Package", oldprice: "30000", newprice: "24000", discount: "30%" },
     ])
 
     return (

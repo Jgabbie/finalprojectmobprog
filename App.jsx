@@ -9,13 +9,20 @@ import Profile from './screens/Profile';
 import UserBookings from './screens/UserBookings';
 import UserTransactions from './screens/UserTransactions';
 import Wishlist from './screens/Wishlist';
+import Notifications from './screens/Notifications';
+import VisaGuidance from './screens/VisaGuidance';
+import PassportGuidance from './screens/PassportGuidance';
+import PassportGuidanceNew from './screens/PassportGuidanceNew';
+import PassportGuidanceReNew from './screens/PassportGuidanceReNew';
+import PackageDetails from './screens/PackageDetails';
+import Packages from './screens/Packages';
 
 const MyScreen = createNativeStackNavigator()
 
 export default function App() {
   return (
     <NavigationContainer>
-      <MyScreen.Navigator initialRouteName='home'>
+      <MyScreen.Navigator initialRouteName='passportnewguidance'>
         <MyScreen.Screen name="login" component={Login} options={{ headerShown: false }} />
         <MyScreen.Screen name="signup" component={Signup} options={{ headerShown: false }} />
         <MyScreen.Screen name="resetpassword" component={ResetPassword} options={{ headerShown: false }} />
@@ -25,6 +32,15 @@ export default function App() {
         <MyScreen.Screen name="userbooking" component={UserBookings} options={{ headerShown: false }} />
         <MyScreen.Screen name="usertransaction" component={UserTransactions} options={{ headerShown: false }} />
         <MyScreen.Screen name="wishlist" component={Wishlist} options={{ headerShown: false }} />
+        <MyScreen.Screen name="notifications" component={Notifications} options={{ headerShown: false }} />
+        <MyScreen.Screen name="packages" component={Packages} options={{ headerShown: false }} />
+        <MyScreen.Screen name="package-details" component={PackageDetails} options={{ headerShown: false }} />
+        <MyScreen.Screen name="visaguidance" component={VisaGuidance} options={{ headerShown: false }} />
+        <MyScreen.Screen name="passportguidance" component={PassportGuidance} options={{ headerShown: false }} />
+        <MyScreen.Screen name="passportnewguidance" component={PassportGuidanceNew} options={{ headerShown: false }} />
+        <MyScreen.Screen name="passportrenewguidance" component={PassportGuidanceReNew} options={{ headerShown: false }} />
+
+
       </MyScreen.Navigator>
     </NavigationContainer>
   );

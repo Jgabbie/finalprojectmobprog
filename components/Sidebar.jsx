@@ -79,7 +79,7 @@ export default function Sidebar({ visible, onClose }) {
                         icon={require('../assets/images/destination_icon.png')}
                         onPress={() => {
                             onClose()
-                            cs.navigate("destination")
+                            cs.navigate("packages")
                         }}
                     />
 
@@ -106,7 +106,7 @@ export default function Sidebar({ visible, onClose }) {
                         icon={require('../assets/images/visa_icon.png')}
                         onPress={() => {
                             onClose()
-                            cs.navigate("visaservice")
+                            cs.navigate("visaguidance")
                         }}
                     />
 
@@ -115,7 +115,7 @@ export default function Sidebar({ visible, onClose }) {
                         icon={require('../assets/images/passport_icon.png')}
                         onPress={() => {
                             onClose()
-                            cs.navigate("passportservice")
+                            cs.navigate("passportguidance")
                         }}
                     />
 

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import {View,Text,ScrollView,Image,TouchableOpacity,TextInput,} from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity, TextInput, } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import styles from "../styles/DestinationStyles";
+import DestinationStyles from "../styles/DestinationStyles";
 import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 
-const PACKAGES = [
+const packages = [
     {
         id: "1",
         title: "Baguio City Tour",
@@ -40,97 +41,63 @@ export default function Packages({ navigation }) {
 
     return (
         <View style={{ flex: 1 }}>
-            <Sidebar
-                visible={isSidebarVisible}
-                onClose={() => setSidebarVisible(false)}
-            />
-
-            <View style={styles.headerContainer}>
-                <TouchableOpacity
-                    style={styles.sideBarButton}
-                    onPress={() => setSidebarVisible(true)}
-                >
-                    <Image
-                        source={require('../materials/sidebar_btn.png')}
-                        style={styles.sideBarImage}
-                    />
-                </TouchableOpacity>
-
-                <Image
-                    source={require('../materials/mrc_logo2.png')}
-                    style={styles.logo}
-                />
-
-                <View style={styles.rightIconsContainer}>
-                    <TouchableOpacity style={styles.bellButton}>
-                        <Image
-                            source={require('../materials/bell_icon.png')}
-                            style={styles.bellIcon}
-                        />
-                    </TouchableOpacity>
-
-                    <Image
-                        source={require('../materials/profile_icon.png')}
-                        style={styles.profileIcon}
-                    />
-                </View>
-            </View>
-
+            <Header openSidebar={() => { setSidebarVisible(true) }} />
+            <Sidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
 
             <ScrollView
-                style={styles.container}
+                style={DestinationStyles.container}
                 contentContainerStyle={{ paddingBottom: 40 }}
             >
-                
 
-                <Text style={styles.heroTitle}>Featured Packages</Text>
-                <Text style={styles.heroSubtitle}>
+
+                <Text style={DestinationStyles.heroTitle}>Featured packages</Text>
+                <Text style={DestinationStyles.heroSubtitle}>
                     Everyone loves to tour with friends, family, or teammates. We can
                     organize your tour to anywhere in the world.
                 </Text>
 
-                <View style={styles.searchRow}>
-                    <View style={styles.searchBar}>
+                <View style={DestinationStyles.searchRow}>
+                    <View style={DestinationStyles.searchBar}>
                         <Ionicons name="search" size={16} color="#777" />
                         <TextInput
-                            style={styles.searchInput}
+                            style={DestinationStyles.searchInput}
                             placeholder="Search packages"
                             placeholderTextColor="#777"
                         />
                     </View>
-                    <View style={styles.dropdownGroup}>
-                        <View style={styles.dropdownButton}>
-                            <Text style={styles.dropdownText}>Activities</Text>
-                            <Ionicons name="chevron-down" size={14} color="#2d5fb8" style={styles.dropdownIcon} />
+                    <View style={DestinationStyles.dropdownGroup}>
+                        <View style={DestinationStyles.dropdownButton}>
+                            <Text style={DestinationStyles.dropdownText}>Activities</Text>
+                            <Ionicons name="chevron-down" size={14} color="#2d5fb8" style={DestinationStyles.dropdownIcon} />
                         </View>
-                        <View style={styles.dropdownButton}>
-                            <Text style={styles.dropdownText}>Duration</Text>
-                            <Ionicons name="chevron-down" size={14} color="#2d5fb8" style={styles.dropdownIcon} />
+                        <View style={DestinationStyles.dropdownButton}>
+                            <Text style={DestinationStyles.dropdownText}>Duration</Text>
+                            <Ionicons name="chevron-down" size={14} color="#2d5fb8" style={DestinationStyles.dropdownIcon} />
                         </View>
                     </View>
                 </View>
 
-                {PACKAGES.map((item) => (
-                    <View key={item.id} style={styles.packageCard}>
-                        <Image source={{ uri: item.image }} style={styles.packageImage} />
-                        <View style={styles.packageContent}>
-                            <Text style={styles.packageTitle}>{item.title}</Text>
-                            <Text style={styles.packageDescription}>{item.description}</Text>
+                {packages.map((item) => (
+                    <View key={item.id} style={DestinationStyles.packageCard}>
+                        <Image source={{ uri: item.image }} style={DestinationStyles.packageImage} />
+                        <View style={DestinationStyles.packageContent}>
+                            <Text style={DestinationStyles.packageTitle}>{item.title}</Text>
+                            <Text style={DestinationStyles.packageDescription}>{item.description}</Text>
                             <TouchableOpacity
-                                style={styles.viewDetailsButton}
+                                style={DestinationStyles.viewDetailsButton}
                                 onPress={() => navigation.navigate("package-details", { pkg: item })}
                             >
-                                <Text style={styles.viewDetailsText}>View Details</Text>
+                                <Text style={DestinationStyles.viewDetailsText}>View Details</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={styles.packageMetaRow}>
-                            <View style={styles.metaItem}>
+                        <View style={DestinationStyles.packageMetaRow}>
+                            <View style={DestinationStyles.metaItem}>
                                 <Ionicons name="location" size={14} color="#2d5fb8" />
-                                <Text style={styles.metaText}>Destination</Text>
+                                <Text style={DestinationStyles.metaText}>Destination</Text>
                             </View>
-                            <View style={styles.metaItem}>
+                            <View style={DestinationStyles.metaItem}>
                                 <Ionicons name="time" size={14} color="#2d5fb8" />
-                                <Text style={styles.metaText}>{item.duration}</Text>
+                                <Text style={DestinationStyles.metaText}>{item.duration}</Text>
                             </View>
                         </View>
                     </View>
