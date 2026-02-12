@@ -8,6 +8,7 @@ import Home from './screens/Home';
 import Profile from './screens/Profile';
 import UserBookings from './screens/UserBookings';
 import UserTransactions from './screens/UserTransactions';
+import Wishlist from './screens/Wishlist';
 
 const MyScreen = createNativeStackNavigator()
 
@@ -23,6 +24,7 @@ export default function App() {
         <MyScreen.Screen name="profile" component={Profile} options={{ headerShown: false }} />
         <MyScreen.Screen name="userbooking" component={UserBookings} options={{ headerShown: false }} />
         <MyScreen.Screen name="usertransaction" component={UserTransactions} options={{ headerShown: false }} />
+        <MyScreen.Screen name="wishlist" component={Wishlist} options={{ headerShown: false }} />
       </MyScreen.Navigator>
     </NavigationContainer>
   );

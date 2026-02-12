@@ -10,7 +10,7 @@ const UserBookingsStyle = StyleSheet.create({
         fontSize: 22,
         fontWeight: "bold",
         marginBottom: 15,
-        color: "#305797"
+        color: "#305797",
     },
     tableHeader: {
         flexDirection: "row",

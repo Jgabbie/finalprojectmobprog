@@ -20,12 +20,10 @@ const HeaderStyle = StyleSheet.create({
     sideBarImage: {
         width: 45,
         height: 45,
-        resizeMode: "contain"
     },
     logo: {
         width: 60,
         height: 60,
-        resizeMode: "contain"
     },
     rightIconsContainer: {
         flexDirection: "row",

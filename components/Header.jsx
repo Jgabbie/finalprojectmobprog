@@ -12,12 +12,14 @@ export default function Header({ openSidebar }) {
                 <Image
                     source={require('../assets/images/sidebar_btn.png')}
                     style={HeaderStyle.sideBarImage}
+                    resizeMode='contain'
                 />
             </TouchableOpacity>
 
             <Image
                 source={require('../assets/images/mrc_logo2.png')}
                 style={HeaderStyle.logo}
+                resizeMode='contain'
             />
 
             <View style={HeaderStyle.rightIconsContainer}>

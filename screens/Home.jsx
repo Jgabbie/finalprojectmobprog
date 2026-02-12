@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useFonts } from '@expo-google-fonts/montserrat'
 import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold } from '@expo-google-fonts/montserrat'
 import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto'
+import HomeStyle from '../styles/HomeStyle'
 
 export default function Home() {
 
@@ -22,59 +23,72 @@ export default function Home() {
     })
 
     const TravelCard = ({ image, location, price, packageName, days }) => (
-        <View>
+        <View style={HomeStyle.card}>
             <Image source={image} style={HomeStyle.cardImage} />
             <Text style={HomeStyle.cardTitle}>{packageName}</Text>
             <View style={HomeStyle.infoRow}>
                 <Image source={require('../assets/images/date_iconsmall.png')} />
-                <Text>{days}</Text>
+                <Text style={HomeStyle.infoText}>{days}</Text>
             </View>
             <View style={HomeStyle.infoRow}>
                 <Image source={require('../assets/images/location_iconsmall.png')} />
-                <Text>{location}</Text>
+                <Text style={HomeStyle.infoText}>{location}</Text>
             </View>
             <Text style={HomeStyle.priceText}>₱{price}</Text>
         </View>
     )
 
     const BannerCard = ({ image, packageName, subText }) => (
-        <View>
-            <Image source={image} style={HomeStyle.cardImage} />
-            <View style={HomeStyle.infoRow}>
-                <Text>{packageName}</Text>
-                <Text>{subText}</Text>
+        <View style={HomeStyle.bannerCard}>
+            <Image source={image} style={HomeStyle.bannerImage} />
+            <View style={HomeStyle.bannerFooter}>
+                <Text style={HomeStyle.bannerTitle}>{packageName}</Text>
+                <Text style={HomeStyle.bannerSub}>{subText}</Text>
             </View>
-            <TouchableOpacity style={HomeStyle.infoRow}>
-                <Text>View Packages</Text>
-                <Image source={require('../assets/images/arrow_righticon.png')} />
+            <TouchableOpacity style={HomeStyle.viewAllButton}>
+                <Text style={HomeStyle.viewAllText}>View Packages</Text>
+                <Image source={require('../assets/images/arrow_righticon.png')} style={HomeStyle.arrowIcon} tintColor={"#fff"} />
             </TouchableOpacity>
         </View>
     )
 
     return (
-        <View>
+        <ScrollView >
             <Header openSidebar={() => { setSidebarVisible(true) }} />
             <Sidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
 
-            <Text>Home</Text>
+            <View style={HomeStyle.container}>
+                <Text style={HomeStyle.title}>M&RC Travel and Tours</Text>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 20 }}>
+                    <TravelCard
+                        image={require('../assets/images/japan_imagesmall.png')}
+                        packageName="Japan Tour Package"
+                        location="Japan"
+                        price="20000"
+                        days=" 3 DAYS"
+                    />
+                    <TravelCard
+                        image={require('../assets/images/boracay_imagesmall.png')}
+                        packageName="Boracay Tour Package"
+                        location="Boracay"
+                        price="12000"
+                        days=" 3 DAYS"
+                    />
+                    <TravelCard
+                        image={require('../assets/images/palawan_imagesmall.png')}
+                        packageName="Palawan Tour Package"
+                        location="Palawan"
+                        price="15000"
+                        days=" 3 DAYS"
+                    />
+                </ScrollView>
 
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <TravelCard
-                    image={require('../assets/images/japan_imagesmall.png')}
-                    location="Japan"
-                    price="20000"
-                />
-                <TravelCard
-                    image={require('../assets/images/boracay_imagesmall.png')}
-                    location="Boracay"
-                    price="12000"
-                />
-                <TravelCard
-                    image={require('../assets/images/palawan_imagesmall.png')}
-                    location="Palawan"
-                    price="15000"
-                />
-            </ScrollView>
-        </View>
+                <Text style={HomeStyle.title}>Packages For You</Text>
+                <BannerCard subText="Enjoy Beach related Activities" packageName="Summer Packages 2026" image={require('../assets/images/southkorea_image.png')} />
+
+                <Text style={HomeStyle.title}>Local Packages</Text>
+                <BannerCard subText="Explore the Philippines" packageName="Explore Local Places" image={require('../assets/images/baguio_imagemedium.png')} />
+            </View>
+        </ScrollView>
     )
 }

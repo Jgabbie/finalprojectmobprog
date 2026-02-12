@@ -2,21 +2,24 @@ import { StyleSheet } from 'react-native'
 
 const SidebarStyle = StyleSheet.create({
     overlay: {
-        flex: 1,
+        position: 'absolute',
         backgroundColor: "rgba(0,0,0,0.5)",
+        justifyContent: 'flex-start',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'flex-start'
     },
     sidebarContainer: {
         width: '75%',
-        flex: 1,
+        height: '100%',
         backgroundColor: '#4076A0',
         paddingTop: 40,
         paddingHorizontal: 30,
         elevation: 5,
-        shadowColor: '#000',
-        shadowOffset: { width: 2, height: 0 },
-        shadowOpacity: 0.3,
-        shadowRadius: 5
+        boxShadow: "2px 0px 8px rgba(0,0,0,0.3)"
     },
     profileSection: {
         flexDirection: "row",
@@ -57,7 +60,6 @@ const SidebarStyle = StyleSheet.create({
     navIcon: {
         width: 30,
         height: 30,
-        resizeMode: 'contain'
     },
     navText: {
         color: "#fff",
