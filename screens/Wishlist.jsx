@@ -80,7 +80,7 @@ export default function Wishlist() {
                                 <View style={WishlistStyle.priceRow}>
                                     <Text style={WishlistStyle.oldPrice}>{item.oldprice}</Text>
                                     <Text style={WishlistStyle.newPrice}>{item.newprice}</Text>
-                                    <Text style={WishlistStyle.discount}>{item.discount}</Text>
+                                    <Text style={WishlistStyle.discount}>{item.discount} OFF</Text>
                                 </View>
 
                                 <View style={WishlistStyle.buttonRow}>

@@ -20,6 +20,15 @@ import BookingInvoice from './screens/BookingInvoice';
 import TransactionReceipt from './screens/TransactionReceipt';
 import VisaDetailsGuidance from './screens/VisaDetailsGuidance';
 import AdminDashboard from './screens/admin/AdminDashboard';
+import UserManagement from './screens/admin/UserManagement';
+import BookingManagement from './screens/admin/BookingManagement';
+import TransactionManagement from './screens/admin/TransactionManagement';
+import CancellationRequests from './screens/admin/CancellationRequests';
+
+import Logging from './screens/admin/Logging';
+
+
+// import Auditing from './screens/admin/Auditing';
 
 const MyScreen = createNativeStackNavigator()
 
@@ -48,6 +57,19 @@ export default function App() {
         <MyScreen.Screen name="transactionreceipt" component={TransactionReceipt} options={{ headerShown: false }} />
 
         <MyScreen.Screen name="admindashboard" component={AdminDashboard} options={{ headerShown: false }} />
+        <MyScreen.Screen name="usermanagement" component={UserManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="bookingmanagement" component={BookingManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="transactionmanagement" component={TransactionManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="cancellationrequest" component={UserManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="packagemanagement" component={UserManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="reviewmanagement" component={UserManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="passportapplications" component={UserManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="visaapplications" component={UserManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="cancellationrequests" component={CancellationRequests} options={{ headerShown: false }} />
+        <MyScreen.Screen name="logging" component={Logging} options={{ headerShown: false }} />
+
+        {/* <MyScreen.Screen name="auditing" component={Auditing} options={{ headerShown: false }} /> */}
+
       </MyScreen.Navigator>
     </NavigationContainer>
   );

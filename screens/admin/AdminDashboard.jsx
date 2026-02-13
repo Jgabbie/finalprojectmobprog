@@ -63,7 +63,7 @@ export default function AdminDashboard() {
                             labelColor: () => { "#ffffff" },
                             propsForDots: {
                                 r: "5",
-                                strokeWith: "2",
+                                strokeWidth: "2",
                                 stroke: "#305797",
                                 fill: "#305797"
                             }

@@ -38,7 +38,7 @@ export default StyleSheet.create({
     pageTitle: {
         fontSize: 22,
         color: "#305797",
-        fontWeight: '700',
+        fontWeight: 'bold',
         marginBottom: 16,
     },
 
@@ -60,7 +60,7 @@ export default StyleSheet.create({
 
     statNumber: {
         fontSize: 16,
-        fontWeight: "700",
+        fontWeight: "bold",
         marginBottom: 3,
     },
 
@@ -101,7 +101,7 @@ export default StyleSheet.create({
     },
 
     tableHeaderText: {
-        fontWeight: "700",
+        fontWeight: "bold",
         color: "#0066cc",
         fontSize: 10,
     },
@@ -124,7 +124,7 @@ export default StyleSheet.create({
 
     appTitle: {
         fontSize: 11,
-        fontWeight: "700",
+        fontWeight: "bold",
         marginBottom: 2,
     },
 
@@ -136,7 +136,7 @@ export default StyleSheet.create({
 
     appPrice: {
         fontSize: 10,
-        fontWeight: "700",
+        fontWeight: "bold",
         marginTop: 2,
         marginBottom: 4,
     },
@@ -157,7 +157,7 @@ export default StyleSheet.create({
 
     dropdownText: {
         color: "#fff",
-        fontWeight: "600",
+        fontWeight: "semibold",
         fontSize: 9,
     },
 
@@ -172,7 +172,7 @@ export default StyleSheet.create({
 
     statusText: {
         color: "#fff",
-        fontWeight: "600",
+        fontWeight: "semibold",
         fontSize: 9,
     },
 
@@ -185,7 +185,7 @@ export default StyleSheet.create({
 
     viewText: {
         color: "#fff",
-        fontWeight: "700",
+        fontWeight: "bold",
         fontSize: 9,
     },
 
@@ -203,7 +203,7 @@ export default StyleSheet.create({
 
     docTitle: {
         fontSize: 11,
-        fontWeight: "700",
+        fontWeight: "bold",
         marginBottom: 2,
     },
 
@@ -215,7 +215,7 @@ export default StyleSheet.create({
 
     sectionTitle: {
         fontSize: 18,
-        fontWeight: "700",
+        fontWeight: "bold",
         color: "#333",
         marginBottom: 16,
         marginTop: 8,
@@ -236,7 +236,7 @@ export default StyleSheet.create({
 
     docTitleLarge: {
         fontSize: 16,
-        fontWeight: "700",
+        fontWeight: "bold",
         color: "#333",
         marginBottom: 6,
     },
@@ -256,7 +256,7 @@ export default StyleSheet.create({
 
     viewFileText: {
         color: "#fff",
-        fontWeight: "700",
+        fontWeight: "bold",
         fontSize: 11,
     },
 
@@ -277,7 +277,7 @@ export default StyleSheet.create({
     },
     cardValue: {
         fontSize: 20,
-        fontWeight: '700',
+        fontWeight: 'bold',
 
     },
     cardLabel: {

@@ -460,7 +460,7 @@ export default function PackageDetails({ route }) {
         </View>
       </ScrollView>
 
-      <Modal visible={!!activeModal} transparent animationType="fade">
+      <Modal visible={activeModal !== null} transparent animationType="fade">
         <View style={DestinationStyles.modalOverlay}>
           <View style={DestinationStyles.modalCard}>
             <View style={DestinationStyles.modalHeader}>

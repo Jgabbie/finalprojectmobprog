@@ -13,7 +13,7 @@ const PassAndVisaManagementStyles = StyleSheet.create({
     header: {
         fontSize: 22,
         color: "#305797",
-        fontWeight: '700',
+        fontWeight: 'bold',
         marginBottom: 16,
     },
     statsContainer: {
@@ -33,7 +33,7 @@ const PassAndVisaManagementStyles = StyleSheet.create({
     },
     cardValue: {
         fontSize: 20,
-        fontWeight: '700',
+        fontWeight: 'bold',
 
     },
     cardLabel: {
@@ -42,10 +42,10 @@ const PassAndVisaManagementStyles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 18,
-        fontWeight: "600",
+        fontWeight: "semibold",
         color: "#305797",
         marginBottom: 12
     }
-    })
+})
 
 export default PassAndVisaManagementStyles

@@ -1,8 +1,9 @@
 import { View, Text, ScrollView, TextInput, FlatList, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import AdminSidebar from '../../components/AdminSidebar'
-import HomeStyle from '../../styles/HomeStyle'
+import Header from '../../components/Header'
 import LoggingStyles from '../../styles/adminstyles/LoggingStyles'
+
 
 export default function Logging() {
   const [isSidebarVisible, setSidebarVisible] = useState(false)
@@ -100,86 +101,76 @@ export default function Logging() {
   )
 
   return (
-    <View style={LoggingStyles.container}>
+    <View>
+      <Header openSidebar={() => { setSidebarVisible(true) }} />
       <AdminSidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
+      <View style={LoggingStyles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={LoggingStyles.header}>Logging</Text>
 
-      <View style={HomeStyle.headerContainer}>
-        <TouchableOpacity style={HomeStyle.sideBarButton} onPress={() => setSidebarVisible(true)}>
-          <Image source={require('../../materials/sidebar_btn.png')} style={HomeStyle.sideBarImage} />
-        </TouchableOpacity>
-        <Image source={require('../../materials/mrc_logo2.png')} style={HomeStyle.logo} />
-        <View style={HomeStyle.rightIconsContainer}>
-          <TouchableOpacity style={HomeStyle.bellButton}>
-            <Image source={require('../../materials/bell_icon.png')} style={HomeStyle.bellIcon} />
-          </TouchableOpacity>
-          <Image source={require('../../materials/profile_icon.png')} style={HomeStyle.profileIcon} />
-        </View>
-      </View>
+          <View style={LoggingStyles.searchRow}>
+            <TextInput
+              style={LoggingStyles.searchInput}
+              placeholder="Search username and actions..."
+              placeholderTextColor="#777"
+            />
+            <TouchableOpacity style={LoggingStyles.filterButton}>
+              <Text style={LoggingStyles.filterText}>Filter</Text>
+              <Text style={LoggingStyles.filterCaret}>v</Text>
+            </TouchableOpacity>
+          </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={LoggingStyles.header}>Logging</Text>
-
-        <View style={LoggingStyles.searchRow}>
-          <TextInput
-            style={LoggingStyles.searchInput}
-            placeholder="Search username and actions..."
-            placeholderTextColor="#777"
+          <FlatList
+            data={logs}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            scrollEnabled={false}
+            style={LoggingStyles.table}
           />
-          <TouchableOpacity style={LoggingStyles.filterButton}>
-            <Text style={LoggingStyles.filterText}>Filter</Text>
-            <Text style={LoggingStyles.filterCaret}>v</Text>
-          </TouchableOpacity>
-        </View>
 
-        <FlatList
-          data={logs}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          scrollEnabled={false}
-          style={LoggingStyles.table}
-        />
-
-        <View style={LoggingStyles.paginationRow}>
-          <View style={LoggingStyles.rowsPerPage}>
-            <Text style={LoggingStyles.rowsText}>Rows per page</Text>
-            <View style={LoggingStyles.rowsPill}>
-              <Text style={LoggingStyles.rowsPillText}>8</Text>
-              <Text style={LoggingStyles.rowsPillText}>v</Text>
+          <View style={LoggingStyles.paginationRow}>
+            <View style={LoggingStyles.rowsPerPage}>
+              <Text style={LoggingStyles.rowsText}>Rows per page</Text>
+              <View style={LoggingStyles.rowsPill}>
+                <Text style={LoggingStyles.rowsPillText}>8</Text>
+                <Text style={LoggingStyles.rowsPillText}>v</Text>
+              </View>
+              <Text style={LoggingStyles.rowsText}>of 67 rows</Text>
             </View>
-            <Text style={LoggingStyles.rowsText}>of 67 rows</Text>
-          </View>
 
-          <View style={LoggingStyles.pageControls}>
-            <TouchableOpacity style={LoggingStyles.pageButton}>
-              <Text style={LoggingStyles.pageButtonText}>{'<<'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={LoggingStyles.pageButton}>
-              <Text style={LoggingStyles.pageButtonText}>{'<'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[LoggingStyles.pageButton, LoggingStyles.pageButtonActive]}>
-              <Text style={[LoggingStyles.pageButtonText, LoggingStyles.pageButtonTextActive]}>1</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={LoggingStyles.pageButton}>
-              <Text style={LoggingStyles.pageButtonText}>2</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={LoggingStyles.pageButton}>
-              <Text style={LoggingStyles.pageButtonText}>3</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={LoggingStyles.pageButton}>
-              <Text style={LoggingStyles.pageButtonText}>...</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={LoggingStyles.pageButton}>
-              <Text style={LoggingStyles.pageButtonText}>10</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={LoggingStyles.pageButton}>
-              <Text style={LoggingStyles.pageButtonText}>{'>'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={LoggingStyles.pageButton}>
-              <Text style={LoggingStyles.pageButtonText}>{'>>'}</Text>
-            </TouchableOpacity>
+            <View style={LoggingStyles.pageControls}>
+              <TouchableOpacity style={LoggingStyles.pageButton}>
+                <Text style={LoggingStyles.pageButtonText}>{'<<'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={LoggingStyles.pageButton}>
+                <Text style={LoggingStyles.pageButtonText}>{'<'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[LoggingStyles.pageButton, LoggingStyles.pageButtonActive]}>
+                <Text style={[LoggingStyles.pageButtonText, LoggingStyles.pageButtonTextActive]}>1</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={LoggingStyles.pageButton}>
+                <Text style={LoggingStyles.pageButtonText}>2</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={LoggingStyles.pageButton}>
+                <Text style={LoggingStyles.pageButtonText}>3</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={LoggingStyles.pageButton}>
+                <Text style={LoggingStyles.pageButtonText}>...</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={LoggingStyles.pageButton}>
+                <Text style={LoggingStyles.pageButtonText}>10</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={LoggingStyles.pageButton}>
+                <Text style={LoggingStyles.pageButtonText}>{'>'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={LoggingStyles.pageButton}>
+                <Text style={LoggingStyles.pageButtonText}>{'>>'}</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
+
   )
 }

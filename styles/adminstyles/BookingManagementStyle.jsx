@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
-const AdminDashboardStyles = StyleSheet.create({
+const BookingManagementStyle = StyleSheet.create({
+
     container: {
         flex: 1,
         padding: 20,
@@ -30,17 +31,11 @@ const AdminDashboardStyles = StyleSheet.create({
     },
     cardValue: {
         fontSize: 20,
-        fontWeight: "bold"
+        fontWeight: 'bold'
     },
     cardLabel: {
         marginTop: 4,
         color: '#777'
-    },
-    sectionTitle: {
-        fontSize: 18,
-        fontWeight: "semibold",
-        color: "#305797",
-        marginBottom: 12
     },
     tableHeader: {
         flexDirection: "row",
@@ -77,7 +72,49 @@ const AdminDashboardStyles = StyleSheet.create({
     viewButtonText: {
         color: "#305797",
         fontWeight: "bold"
-    }
+    },
+    searchRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+        marginBottom: 16
+    },
+    searchBar: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#f6f8fc",
+        borderRadius: 22,
+        paddingHorizontal: 14,
+        paddingVertical: 10,
+        borderWidth: 1,
+        borderColor: "#dbe3ef"
+    },
+    searchInput: {
+        flex: 1,
+        marginLeft: 8,
+        fontSize: 13,
+        color: "#333",
+    },
+    dropdownGroup: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8
+    },
+    dropdownButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#eef3fb",
+        borderRadius: 18,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderWidth: 1,
+        borderColor: "#d6e0f0"
+    },
+    dropdownIcon: {
+        marginLeft: 6
+    },
+
 })
 
-export default AdminDashboardStyles
+export default BookingManagementStyle

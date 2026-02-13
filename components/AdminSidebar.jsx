@@ -39,17 +39,62 @@ const AdminSidebar = ({ visible, onClose }) => {
 
                         <View style={SidebarStyle.divider} />
 
-                        <MenuItem title="Dashboard" onPress={() => handleNavigation("admindashboard")} />
-                        <MenuItem title="User Management" onPress={() => handleNavigation("usermanagement")} />
-                        <MenuItem title="Booking Management" onPress={() => handleNavigation("bookingmanagement")} />
-                        <MenuItem title="Transaction Management" onPress={() => handleNavigation("transactionmanagement")} />
-                        <MenuItem title="Package Management" onPress={() => handleNavigation("packagemanagement")} />
-                        <MenuItem title="Cancellation Requests" onPress={() => handleNavigation("cancelmanagement")} />
-                        <MenuItem title="Review and Ratings" onPress={() => handleNavigation("ratingmanagement")} />
-                        <MenuItem title="Passport Applications" onPress={() => handleNavigation("passportapplications")} />
-                        <MenuItem title="VISA Applications" onPress={() => handleNavigation("visaapplications")} />
-                        <MenuItem title="Logging" onPress={() => handleNavigation("logging")} />
-                        <MenuItem title="Auditing" onPress={() => handleNavigation("auditing")} />
+                        <MenuItem title="Dashboard" onPress={() => {
+                            onClose()
+                            cs.navigate("admindashboard")
+                        }}
+                        />
+                        <MenuItem title="User Management" onPress={() => {
+                            onClose()
+                            cs.navigate("usermanagement")
+                        }}
+
+                        />
+                        <MenuItem title="Booking Management" onPress={() => {
+                            onClose()
+                            cs.navigate("bookingmanagement")
+                        }}
+                        />
+                        <MenuItem title="Transaction Management" onPress={() => {
+                            onClose()
+                            cs.navigate("transactionmanagement")
+                        }}
+                        />
+                        <MenuItem title="Package Management" onPress={() => {
+                            onClose()
+                            cs.navigate("packagemanagement")
+                        }}
+                        />
+                        <MenuItem title="Cancellation Requests" onPress={() => {
+                            onClose()
+                            cs.navigate("cancellationrequests")
+                        }}
+                        />
+                        <MenuItem title="Review and Ratings" onPress={() => {
+                            onClose()
+                            cs.navigate("ratingmanagement")
+                        }}
+                        />
+                        <MenuItem title="Passport Applications" onPress={() => {
+                            onClose()
+                            cs.navigate("passportapplications")
+                        }}
+                        />
+                        <MenuItem title="VISA Applications" onPress={() => {
+                            onClose()
+                            cs.navigate("visaapplications")
+                        }}
+                        />
+                        <MenuItem title="Logging" onPress={() => {
+                            onClose()
+                            cs.navigate("logging")
+                        }}
+                        />
+                        <MenuItem title="Auditing" onPress={() => {
+                            onClose()
+                            cs.navigate("auditing")
+                        }}
+                        />
 
                         <View style={SidebarStyle.divider} />
 
