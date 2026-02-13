@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity, Image, Modal } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useFonts } from 'expo-font'
 import {
     Montserrat_400Regular,
@@ -16,6 +16,7 @@ import ProfileStyle from '../styles/ProfileStyle'
 import ModalStyle from '../styles/ModalStyle'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
+import { UserContext } from '../context/UserContext'
 
 
 export default function Profile() {
@@ -23,6 +24,7 @@ export default function Profile() {
     const [modalVisible, setModalVisible] = useState(false)
     const [saveModalVisible, setSaveModalVisible] = useState(false)
     const [isSidebarVisible, setSidebarVisible] = useState(false);
+    const [userData, setUserData] = useState({});
 
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
@@ -33,6 +35,17 @@ export default function Profile() {
         Roboto_700Bold
     })
 
+    const getData = useContext(UserContext)
+    const { getUsers, currentUser, setUsers } = getData
+
+    useEffect(() => {
+        const userFound = getUsers.find((user) => user.username === currentUser)
+        if (userFound) {
+            setUserData(userFound)
+        }
+    }, [])
+
+
     const handleSavePress = () => {
         if (editing) {
             setModalVisible(true)
@@ -42,6 +55,8 @@ export default function Profile() {
     }
 
     const confirmSave = () => {
+        const updateUser = getUsers.map((user) => user.username === currentUser ? userData : user)
+        setUsers(updateUser)
         setEditing(false)
         setModalVisible(false)
         setSaveModalVisible(true)
@@ -73,31 +88,31 @@ export default function Profile() {
 
                 <Text style={ProfileStyle.profileHeading}>Personal Information</Text>
                 <Text style={ProfileStyle.profileLabel}>Username</Text>
-                <TextInput style={ProfileStyle.profileInputs}></TextInput>
+                <TextInput value={userData.username} editable={editing} onChangeText={(e) => setUserData({ ...userData, username: e })} style={ProfileStyle.profileInputs}></TextInput>
 
                 <View style={ProfileStyle.fullNameContainer}>
                     <View>
                         <Text style={ProfileStyle.profileLabel} >First Name</Text>
-                        <TextInput style={ProfileStyle.nameInputs}></TextInput>
+                        <TextInput value={userData.firstname} editable={editing} onChangeText={(e) => setUserData({ ...userData, firstname: e })} style={ProfileStyle.nameInputs}></TextInput>
                     </View>
 
                     <View>
                         <Text style={ProfileStyle.profileLabel}>Last Name</Text>
-                        <TextInput style={ProfileStyle.nameInputs}></TextInput>
+                        <TextInput value={userData.lastname} editable={editing} onChangeText={(e) => setUserData({ ...userData, lastname: e })} style={ProfileStyle.nameInputs}></TextInput>
                     </View>
                 </View>
 
                 <Text style={ProfileStyle.profileLabel}>Email</Text>
-                <TextInput style={ProfileStyle.profileInputs}></TextInput>
+                <TextInput value={userData.email} editable={editing} onChangeText={(e) => setUserData({ ...userData, email: e })} style={ProfileStyle.profileInputs}></TextInput>
 
                 <Text style={ProfileStyle.profileLabel}>Phone Number</Text>
-                <TextInput style={ProfileStyle.profileInputs}></TextInput>
+                <TextInput value={userData.phonenum} editable={editing} onChangeText={(e) => setUserData({ ...userData, phonenum: e })} style={ProfileStyle.profileInputs}></TextInput>
 
                 <Text style={ProfileStyle.profileLabel}>Address</Text>
-                <TextInput style={ProfileStyle.profileInputs}></TextInput>
+                <TextInput value={userData.address || ""} editable={editing} onChangeText={(e) => setUserData({ ...userData, address: e })} style={ProfileStyle.profileInputs}></TextInput>
 
                 <Text style={ProfileStyle.profileLabel}>Gender</Text>
-                <TextInput style={ProfileStyle.profileInputs}></TextInput>
+                <TextInput value={userData.gender || ""} editable={editing} onChangeText={(e) => setUserData({ ...userData, gender: e })} style={ProfileStyle.profileInputs}></TextInput>
 
                 <TouchableOpacity style={ProfileStyle.profileButton} >
                     <Text style={ProfileStyle.profileButtonText} onPress={() => { handleSavePress() }}>
@@ -109,7 +124,7 @@ export default function Profile() {
                     transparent
                     animationType='fade'
                     visible={modalVisible}
-                    onRequestClose={() => { setModalVisible }}
+                    onRequestClose={() => { setModalVisible(false) }}
                 >
 
                     <View style={ModalStyle.modalOverlay}>
@@ -145,7 +160,7 @@ export default function Profile() {
                     transparent
                     animationType='fade'
                     visible={saveModalVisible}
-                    onRequestClose={() => { setSaveModalVisible }}
+                    onRequestClose={() => { setSaveModalVisible(false) }}
                 >
 
                     <View style={ModalStyle.modalOverlay}>

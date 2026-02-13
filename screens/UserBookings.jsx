@@ -1,5 +1,5 @@
 import { View, Text, FlatList, TouchableOpacity, TextInput, Modal } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Ionicons } from "@expo/vector-icons"
 import UserBookingsStyle from '../styles/UserBookingsStyle'
 import { useNavigation } from '@react-navigation/native'
@@ -9,6 +9,7 @@ import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-googl
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import ModalStyle from '../styles/ModalStyle'
+import { UserContext } from '../context/UserContext'
 
 export default function UserBookings() {
 
@@ -16,6 +17,9 @@ export default function UserBookings() {
     const [isSidebarVisible, setSidebarVisible] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const [modalOkVisible, setModalOkVisible] = useState(false)
+
+    const getData = useContext(UserContext)
+    const { bookings } = getData
 
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
@@ -26,8 +30,17 @@ export default function UserBookings() {
         Roboto_700Bold
     })
 
-    const [bookings, setBookings] = useState([
-        { id: "1", ref: "BR-0001", package: "Boracay Tour", pax: "4", date: "09-14-2026", amount: 70000 },
+    const mybookings = bookings.map((element, index) => ({
+        id: (index + 1).toString(),
+        ref: "BR-000" + (index + 1),
+        package: element.package,
+        pax: element.totalTravelers,
+        price: element.price,
+        date: element.date
+    }))
+
+    const [getbookings, setBookings] = useState([
+        { id: "1", ref: "BR-0001", package: "Boracay Tour", pax: "4", date: "09-14-2026", price: 70000 },
     ])
 
     const modalOK = () => {
@@ -83,14 +96,14 @@ export default function UserBookings() {
 
                 <FlatList
                     keyExtractor={(item) => item.id}
-                    data={bookings}
+                    data={mybookings}
                     renderItem={({ item }) => (
                         <View style={UserBookingsStyle.tableRow}>
                             <Text style={UserBookingsStyle.tableCell}>{item.ref}</Text>
                             <Text style={UserBookingsStyle.tableCell}>{item.package}</Text>
                             <Text style={UserBookingsStyle.tableCell}>{item.pax}</Text>
                             <Text style={UserBookingsStyle.tableCell}>{item.date}</Text>
-                            <Text style={UserBookingsStyle.tableCell}>{item.amount}</Text>
+                            <Text style={UserBookingsStyle.tableCell}>{item.price}</Text>
                             <View>
                                 <TouchableOpacity
                                     style={UserBookingsStyle.actionButton}

@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from "react"
+import React, { useContext, useEffect, useMemo, useState } from "react"
 import { View, Text, ScrollView, Image, TouchableOpacity, Modal, } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { Calendar } from "react-native-calendars"
 import DestinationStyles from "../styles/DestinationStyles"
 import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
+import { UserContext } from "../context/UserContext"
 
 
 const modalDetails = {
@@ -193,6 +194,28 @@ const defaultTravelers = {
 }
 
 export default function PackageDetails({ route }) {
+
+  const getData = useContext(UserContext)
+  const { setBookings } = getData
+
+  const saveBooking = () => {
+    const booking = {
+      package: pkg.title,
+      date: pkg.isInternational ? availableDateId : selectedDate,
+      allInLand,
+      fixedCustom,
+      soloGrouped,
+      totalTravelers,
+      paymentMethod: selectedOption,
+      price: pkg.price,
+      status: "Paid"
+    }
+
+    setBookings((bookings) => [...bookings, booking])
+    setActiveModal("approval")
+    console.log("Booking saved!")
+  }
+
   const [isSidebarVisible, setSidebarVisible] = useState(false)
 
   const pkg = route?.params?.pkg ?? {
@@ -222,7 +245,7 @@ export default function PackageDetails({ route }) {
     })
   )
   const [availableDateId, setAvailableDateId] = useState(
-    () => modalContent.availableDates[0]?.id ?? "date-1"
+    () => modalContent.availableDates[0]?.id ?? "March 18, 2026"
   )
   const [allInLand, setAllInLand] = useState("all-in")
   const [fixedCustom, setFixedCustom] = useState("fixed")
@@ -233,6 +256,12 @@ export default function PackageDetails({ route }) {
   const [addons, setAddons] = useState(["addon-1"])
   const [tours, setTours] = useState(["tour-1"])
   const [selectedOption, setSelectedOption] = useState('')
+
+  useEffect(() => {
+    if (activeModal === "approval") {
+      saveBooking()
+    }
+  }, [activeModal])
 
   const getModalTitle = () => {
     if (activeModal === "date") return "Choose Date"
@@ -515,11 +544,11 @@ export default function PackageDetails({ route }) {
                     <TouchableOpacity
                       key={option.id}
                       style={DestinationStyles.cardOption}
-                      onPress={() => setAvailableDateId(option.id)}
+                      onPress={() => setAvailableDateId(option.range)}
                     >
                       <View style={DestinationStyles.radioRow}>
                         <View style={DestinationStyles.radioOuter}>
-                          {availableDateId === option.id && (
+                          {availableDateId === option.range && (
                             <View style={DestinationStyles.radioInner} />
                           )}
                         </View>
@@ -863,19 +892,6 @@ export default function PackageDetails({ route }) {
                       Amount to be charged using selected payment method
                     </Text>
                   </View>
-
-                  <TouchableOpacity
-                    style={[
-                      DestinationStyles.button,
-                      !selectedOption && { opacity: 0.5 }
-                    ]}
-                    disabled={!selectedOption}
-                    onPress={() => {
-                      setModalVisible(true)
-                    }}
-                  >
-                    <Text style={DestinationStyles.buttonText}>Continue</Text>
-                  </TouchableOpacity>
                 </View>
               )}
 

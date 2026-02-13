@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Ionicons } from "@expo/vector-icons"
 import Sidebar from '../components/Sidebar'
 import Header from '../components/Header'
@@ -9,12 +9,17 @@ import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold } from 
 import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto'
 import HomeStyle from '../styles/HomeStyle'
 import Chatbot from '../components/Chatbot'
+import { UserContext } from '../context/UserContext'
 
 export default function Home() {
 
     const cs = useNavigation()
     const [isSidebarVisible, setSidebarVisible] = useState(false)
 
+    const getData = useContext(UserContext)
+    const { currentUser } = getData
+
+    console.log(currentUser)
 
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
