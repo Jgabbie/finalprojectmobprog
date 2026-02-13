@@ -131,8 +131,6 @@ export default function Sidebar({ visible, onClose }) {
                 </View>
             </View>
 
-
-
             <Modal
                 transparent
                 animationType='fade'

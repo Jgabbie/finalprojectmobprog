@@ -19,13 +19,14 @@ import Packages from './screens/Packages';
 import BookingInvoice from './screens/BookingInvoice';
 import TransactionReceipt from './screens/TransactionReceipt';
 import VisaDetailsGuidance from './screens/VisaDetailsGuidance';
+import AdminDashboard from './screens/admin/AdminDashboard';
 
 const MyScreen = createNativeStackNavigator()
 
 export default function App() {
   return (
     <NavigationContainer>
-      <MyScreen.Navigator initialRouteName='passportnewguidance'>
+      <MyScreen.Navigator initialRouteName='admindashboard'>
         <MyScreen.Screen name="login" component={Login} options={{ headerShown: false }} />
         <MyScreen.Screen name="signup" component={Signup} options={{ headerShown: false }} />
         <MyScreen.Screen name="resetpassword" component={ResetPassword} options={{ headerShown: false }} />
@@ -45,6 +46,8 @@ export default function App() {
         <MyScreen.Screen name="passportrenewguidance" component={PassportGuidanceReNew} options={{ headerShown: false }} />
         <MyScreen.Screen name="bookinginvoice" component={BookingInvoice} options={{ headerShown: false }} />
         <MyScreen.Screen name="transactionreceipt" component={TransactionReceipt} options={{ headerShown: false }} />
+
+        <MyScreen.Screen name="admindashboard" component={AdminDashboard} options={{ headerShown: false }} />
       </MyScreen.Navigator>
     </NavigationContainer>
   );
