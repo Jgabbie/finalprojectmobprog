@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const SignupStyle = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 120
+        paddingTop: 180
     },
     signupHeading: {
         fontSize: 45,
@@ -21,6 +21,7 @@ const SignupStyle = StyleSheet.create({
         fontFamily: "Montserrat_700Bold",
         color: "#305797",
         marginTop: 0,
+        marginBottom: 0,
         margin: 20,
         textAlign: "center"
     },
@@ -60,7 +61,9 @@ const SignupStyle = StyleSheet.create({
         color: "#305797"
     },
     signupLinksContainer: {
-        margin: 20
+        marginTop: 10,
+        marginLeft: 20,
+        marginBottom: 10
     },
     signupButton: {
         alignItems: "center",

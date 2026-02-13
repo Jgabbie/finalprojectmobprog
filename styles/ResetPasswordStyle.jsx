@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const ResetPasswordStyle = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 120
+        paddingTop: 220
     },
     resetPasswordHeading: {
         fontSize: 35,

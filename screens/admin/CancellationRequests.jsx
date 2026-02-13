@@ -1,13 +1,19 @@
-import { View, Text, TouchableOpacity, TextInput, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, FlatList, Modal } from 'react-native'
 import React, { useState } from 'react'
 import CancellationRequestStyle from '../../styles/CancellationRequestStyle'
 import Header from '../../components/Header'
 import AdminSidebar from '../../components/AdminSidebar'
 import { Ionicons } from "@expo/vector-icons"
+import ModalStyle from '../../styles/ModalStyle'
 
 
 export default function CancellationRequests() {
     const [isSidebarVisible, setSidebarVisible] = useState(false)
+
+    const [modalApproveVisible, setModalApproveVisible] = useState(false)
+    const [modalApproveOkVisible, setModalApproveOkVisible] = useState(false)
+    const [modalDeniedVisible, setModalDeniedVisible] = useState(false)
+    const [modalDeniedOkVisible, setModalDeniedOkVisible] = useState(false)
 
     const [cancels, setCancels] = useState([
         { id: "1", ref: "CR-0001", username: "jlanuza", package: "Boracay Tour", reason: "Emergency", date: "09-14-2026", },
@@ -102,13 +108,16 @@ export default function CancellationRequests() {
                             <View>
                                 <TouchableOpacity
                                     style={CancellationRequestStyle.actionButton}
+                                    onPress={() => {
+                                        setModalApproveVisible(true)
+                                    }}
                                 >
                                     <Text style={CancellationRequestStyle.viewButtonText}>Approved</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={CancellationRequestStyle.actionButton}
                                     onPress={() => {
-                                        cs.navigate("bookinginvoice")
+                                        setModalDeniedVisible(true)
                                     }}
                                 >
                                     <Text style={CancellationRequestStyle.viewButtonText}>Denied</Text>
@@ -118,6 +127,132 @@ export default function CancellationRequests() {
                     )}
                 />
             </View>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalApproveVisible}
+                onRequestClose={() => { setModalApproveVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Approve Cancellation</Text>
+                        <Text style={ModalStyle.modalText}>Are you sure you want to approve this cancellation request?</Text>
+
+                        <View style={ModalStyle.modalButtonContainer}>
+                            <TouchableOpacity
+                                style={ModalStyle.modalButton}
+                                onPress={() => {
+                                    setModalApproveOkVisible(true)
+                                    setModalApproveVisible(false)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Approve</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={ModalStyle.modalCancelButton}
+                                onPress={() => {
+                                    setModalApproveVisible(false)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Cancel</Text>
+                            </TouchableOpacity>
+
+
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalApproveOkVisible}
+                onRequestClose={() => { setModalApproveOkVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Request Approved</Text>
+                        <Text style={ModalStyle.modalText}>You have successfully approved this cancellation request!</Text>
+
+
+                        <TouchableOpacity
+                            style={ModalStyle.modalButton}
+                            onPress={() => {
+                                setModalApproveOkVisible(false)
+                            }}
+                        >
+                            <Text style={ModalStyle.modalButtonText}>OK</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalDeniedVisible}
+                onRequestClose={() => { setModalDeniedVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Deny Cancellation</Text>
+                        <Text style={ModalStyle.modalText}>Are you sure you want to deny this cancellation request?</Text>
+
+                        <View style={ModalStyle.modalButtonContainer}>
+                            <TouchableOpacity
+                                style={ModalStyle.modalButton}
+                                onPress={() => {
+                                    setModalDeniedOkVisible(true)
+                                    setModalDeniedVisible(false)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Deny</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={ModalStyle.modalCancelButton}
+                                onPress={() => {
+                                    setModalDeniedVisible(false)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Cancel</Text>
+                            </TouchableOpacity>
+
+
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalDeniedOkVisible}
+                onRequestClose={() => { setModalDeniedOkVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Request Denied</Text>
+                        <Text style={ModalStyle.modalText}>You have successfully denied this cancellation request!</Text>
+
+
+                        <TouchableOpacity
+                            style={ModalStyle.modalButton}
+                            onPress={() => {
+                                setModalDeniedOkVisible(false)
+                            }}
+                        >
+                            <Text style={ModalStyle.modalButtonText}>OK</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }

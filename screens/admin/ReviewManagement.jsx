@@ -72,7 +72,9 @@ export default function ReviewManagement() {
             )
         }
 
-        return <View style={{ flexDirection: 'row', gap: 2 }}> {stars}  </View>
+        return <View style={{ flexDirection: 'row' }}>
+            {stars}
+        </View>
     }
 
     const renderItem = ({ item }) => (

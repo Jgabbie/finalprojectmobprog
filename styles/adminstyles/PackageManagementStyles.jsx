@@ -53,13 +53,22 @@ const PackageManagementStyles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 15,
     },
-    SearchBar: {
+    searchBar: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#f6f8fc",
+        borderRadius: 22,
+        paddingHorizontal: 14,
+        paddingVertical: 10,
         borderWidth: 1,
-        borderColor: "#ccc",
-        borderRadius: 10,
-        padding: 10,
-        backgroundColor: '#fff',
-        width: '60%',
+        borderColor: "#dbe3ef"
+    },
+    searchInput: {
+        flex: 1,
+        marginLeft: 8,
+        fontSize: 13,
+        color: "#333",
     },
     addPackageBtn: {
         flexDirection: 'row',
@@ -75,7 +84,6 @@ const PackageManagementStyles = StyleSheet.create({
         width: 15,
         height: 15,
         marginRight: 5,
-        tintColor: '#fff'
     },
     addBtnText: {
         color: '#fff',
@@ -150,27 +158,6 @@ const PackageManagementStyles = StyleSheet.create({
         color: '#fff',
         fontSize: 10,
         fontFamily: 'Roboto_500Medium'
-    },
-    paginationContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingVertical: 10
-    },
-    paginationButton: {
-        backgroundColor: '#305797',
-        paddingVertical: 5,
-        paddingHorizontal: 12,
-        borderRadius: 5,
-    },
-    paginationText: {
-        color: '#fff',
-        fontWeight: '600',
-        fontFamily: 'Roboto_700Bold',
-    },
-    pageIndicator: {
-        marginHorizontal: 15,
-        fontSize: 14
     },
 
     modalOverlay: {

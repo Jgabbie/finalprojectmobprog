@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const LoginStyle = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 120
+        paddingTop: 200
     },
     loginHeading: {
         fontSize: 60,
