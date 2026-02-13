@@ -26,7 +26,9 @@ import TransactionManagement from './screens/admin/TransactionManagement';
 import CancellationRequests from './screens/admin/CancellationRequests';
 
 import Logging from './screens/admin/Logging';
-
+import PackageManagement from './screens/admin/PackageManagement';
+import AddPackage from './screens/admin/AddPackage';
+import EditPackage from './screens/admin/EditPackage';
 
 // import Auditing from './screens/admin/Auditing';
 
@@ -61,12 +63,14 @@ export default function App() {
         <MyScreen.Screen name="bookingmanagement" component={BookingManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="transactionmanagement" component={TransactionManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="cancellationrequest" component={UserManagement} options={{ headerShown: false }} />
-        <MyScreen.Screen name="packagemanagement" component={UserManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="packagemanagement" component={PackageManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="reviewmanagement" component={UserManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="passportapplications" component={UserManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="visaapplications" component={UserManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="cancellationrequests" component={CancellationRequests} options={{ headerShown: false }} />
         <MyScreen.Screen name="logging" component={Logging} options={{ headerShown: false }} />
+        <MyScreen.Screen name="addpackage" component={AddPackage} options={{ headerShown: false }} />
+        <MyScreen.Screen name="editpackage" component={EditPackage} options={{ headerShown: false }} />
 
         {/* <MyScreen.Screen name="auditing" component={Auditing} options={{ headerShown: false }} /> */}
 
@@ -74,4 +78,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
