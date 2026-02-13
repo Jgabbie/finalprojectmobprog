@@ -29,12 +29,16 @@ import BookingManagement from './screens/admin/BookingManagement';
 import TransactionManagement from './screens/admin/TransactionManagement';
 import ReviewManagement from './screens/admin/ReviewManagement';
 import CancellationRequests from './screens/admin/CancellationRequests';
+import PackageManagement from './screens/admin/PackageManagement';
+import AddPackage from './screens/admin/AddPackage';
+import EditPackage from './screens/admin/EditPackage';
 import PassportApplications from './screens/admin/PassportApplications';
 import PassportApplicationView from './screens/admin/PassportApplicationView';
 import VisaApplications from './screens/admin/VisaApplications';
 import VisaApplicationView from './screens/admin/VisaApplicationView';
 import Logging from './screens/admin/Logging';
 import Auditing from './screens/admin/Auditing';
+
 
 
 
@@ -71,7 +75,9 @@ export default function App() {
         <MyScreen.Screen name="usermanagement" component={UserManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="bookingmanagement" component={BookingManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="transactionmanagement" component={TransactionManagement} options={{ headerShown: false }} />
-        <MyScreen.Screen name="packagemanagement" component={UserManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="packagemanagement" component={PackageManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="addpackage" component={AddPackage} options={{ headerShown: false }} />
+        <MyScreen.Screen name="editpackage" component={EditPackage} options={{ headerShown: false }} />
         <MyScreen.Screen name="reviewmanagement" component={ReviewManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="passportapplications" component={PassportApplications} options={{ headerShown: false }} />
         <MyScreen.Screen name="passportapplicationview" component={PassportApplicationView} options={{ headerShown: false }} />
@@ -85,4 +91,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
