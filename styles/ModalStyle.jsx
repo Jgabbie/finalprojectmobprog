@@ -15,6 +15,13 @@ const ModalStyle = StyleSheet.create({
         padding: 20,
         alignItems: "center"
     },
+    modalBoxEdit: {
+        width: 350,
+        backgroundColor: "#fff",
+        borderRadius: 15,
+        padding: 20,
+        alignItems: "center"
+    },
     modalTitle: {
         fontSize: 22,
         fontFamily: "Montserrat_700Bold",
@@ -35,6 +42,16 @@ const ModalStyle = StyleSheet.create({
     modalButton: {
         backgroundColor: "#305797",
         width: 100,
+        height: 40,
+        paddingVertical: 10,
+        paddingVertical: 20,
+        borderRadius: 8,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    modalEditButton: {
+        backgroundColor: "#305797",
+        width: 120,
         height: 40,
         paddingVertical: 10,
         paddingVertical: 20,
@@ -66,7 +83,37 @@ const ModalStyle = StyleSheet.create({
         marginBottom: 20,
         width: 150,
         textAlign: "center"
-    }
+    },
+    userLabel: {
+        fontSize: 12,
+        color: "#305797",
+        textAlign: "left"
+    },
+    userInputs: {
+        fontSize: 16,
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: "#6d6d6d",
+        padding: 10,
+        marginBottom: 10,
+        width: 240,
+        height: 30
+    },
+    fullNameContainer: {
+        display: "flex",
+        flexDirection: "row",
+        gap: 10
+    },
+    nameInputs: {
+        fontSize: 16,
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: "#6d6d6d",
+        padding: 10,
+        marginBottom: 10,
+        width: 115,
+        height: 30
+    },
 
 })
 

@@ -1,13 +1,10 @@
 import { View, Text, TouchableOpacity, Image, TextInput, FlatList, Modal } from 'react-native'
 import React, { useState } from 'react'
-import { Picker } from '@react-native-picker/picker'
+import { Ionicons } from "@expo/vector-icons"
 import AdminSidebar from '../../components/AdminSidebar'
-import HomeStyle from '../../styles/HomeStyle';
 import ReviewManagementStyles from '../../styles/adminstyles/ReviewManagementStyles';
-import { useNavigation } from '@react-navigation/native';
-import { useFonts } from 'expo-font'
-import {Montserrat_400Regular,Montserrat_500Medium,Montserrat_700Bold} from "@expo-google-fonts/montserrat"
-import {Roboto_400Regular,Roboto_500Medium,Roboto_700Bold} from "@expo-google-fonts/roboto"
+import Header from '../../components/Header';
+import ModalStyle from '../../styles/ModalStyle';
 
 export default function ReviewManagement() {
     const [isSidebarVisible, setSidebarVisible] = useState(false)
@@ -42,41 +39,41 @@ export default function ReviewManagement() {
             username: 'tayshaun',
             package: 'Japan Tour',
             stars: 4,
-            comment: 'Very organized tour, great guides.'
+            comment: 'Great Tour!'
         },
         {
             id: '3',
             username: 'marionblmt',
             package: 'Korea Tour',
             stars: 3,
-            comment: 'Good but hotel could be better.'
+            comment: 'Hotel is kinda okay.'
         },
         {
             id: '4',
             username: 'jsnnsbauca',
             package: 'El Nido Tour',
             stars: 1,
-            comment: 'Trip was cancelled last minute.'
+            comment: 'The itinerary was not followed.'
         },
     ])
 
-    const filteredReviews = reviews.filter(r => {
-        const matchesSearch =
-            r.username.toLowerCase().includes(searchText.toLowerCase())||
-            r.package.toLowerCase().includes(searchText.toLowerCase())||
-            r.comment.toLowerCase().includes(searchText.toLowerCase())
 
-        const matchesStars =
-            starFilter==='All'||r.stars===Number(starFilter)
+    const renderStars = (count) => {
+        const stars = []
 
-        return matchesSearch && matchesStars
-    })
+        for (let i = 1; i <= 5; i++) {
+            stars.push(
+                <Ionicons
+                    key={i}
+                    name={i <= count ? 'star' : 'star-outline'}
+                    size={16}
+                    color="#FFD700"
+                />
+            )
+        }
 
-    const renderStars = (count) => (
-        <Text style={ReviewManagementStyles.stars}>
-            {'★'.repeat(count)}{'☆'.repeat(5-count)}
-        </Text>
-    )
+        return <View style={{ flexDirection: 'row', gap: 2 }}> {stars}  </View>
+    }
 
     const renderItem = ({ item }) => (
         <View style={ReviewManagementStyles.reviewCard}>
@@ -86,7 +83,7 @@ export default function ReviewManagement() {
             </View>
 
             <Text style={ReviewManagementStyles.package}>
-                Package:{item.package}
+                Package: {item.package}
             </Text>
 
             <Text style={ReviewManagementStyles.comment}>
@@ -95,7 +92,7 @@ export default function ReviewManagement() {
 
             <TouchableOpacity
                 style={ReviewManagementStyles.removeButton}
-                onPress={() =>{setModalRemoveVisible(true)}}
+                onPress={() => { setModalRemoveVisible(true) }}
             >
                 <Text style={ReviewManagementStyles.removeButtonText}>
                     Remove
@@ -104,21 +101,11 @@ export default function ReviewManagement() {
         </View>
     )
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <AdminSidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
+            <Header openSidebar={() => { setSidebarVisible(true) }} />
 
-            <View style={HomeStyle.headerContainer}>
-                <TouchableOpacity style={HomeStyle.sideBarButton} onPress={() => setSidebarVisible(true)}>
-                    <Image source={require('../../materials/sidebar_btn.png')} style={HomeStyle.sideBarImage} />
-                </TouchableOpacity>
-                <Image source={require('../../materials/mrc_logo2.png')} style={HomeStyle.logo} />
-                <View style={HomeStyle.rightIconsContainer}>
-                    <TouchableOpacity style={HomeStyle.bellButton}>
-                        <Image source={require('../../materials/bell_icon.png')} style={HomeStyle.bellIcon} />
-                    </TouchableOpacity>
-                    <Image source={require('../../materials/profile_icon.png')} style={HomeStyle.profileIcon} />
-                </View>
-            </View>
+
             <View style={ReviewManagementStyles.container}>
                 <Text style={ReviewManagementStyles.header}>Ratings Management</Text>
                 <View style={ReviewManagementStyles.statsContainer}>
@@ -147,32 +134,44 @@ export default function ReviewManagement() {
                     </View>
                 </View>
 
-                <TextInput
-                    style={ReviewManagementStyles.searchBar}
-                    placeholder="Search reviews..."
-                    value={searchText}
-                    onChangeText={setSearchText}
-                />
-
-                <Picker
-                    selectedValue={starFilter}
-                    style={ReviewManagementStyles.picker}
-                    onValueChange={value => setStarFilter(value)}
-                >
-                    <Picker.Item label="All Ratings" value="All" />
-                    <Picker.Item label="5 Stars" value="5" />
-                    <Picker.Item label="4 Stars" value="4" />
-                    <Picker.Item label="3 Stars" value="3" />
-                    <Picker.Item label="2 Stars" value="2" />
-                    <Picker.Item label="1 Star" value="1" />
-                </Picker>
+                <View style={ReviewManagementStyles.searchRow}>
+                    <View style={ReviewManagementStyles.searchBar} >
+                        <Ionicons name="search" size={16} />
+                        <TextInput
+                            style={ReviewManagementStyles.searchInput}
+                            placeholder='Search username'
+                            placeholderTextColor="#777"
+                        />
+                    </View>
+                    <View style={ReviewManagementStyles.dropdownGroup}>
+                        <View style={ReviewManagementStyles.dropdownButton} >
+                            <Text style={ReviewManagementStyles.dropdownText} >Stars</Text>
+                            <Ionicons
+                                name="chevron-down"
+                                size={12}
+                                color="#305797"
+                                style={ReviewManagementStyles.dropdownIcon}
+                            />
+                        </View>
+                        <View style={ReviewManagementStyles.dropdownButton} >
+                            <Text style={ReviewManagementStyles.dropdownText} >Date</Text>
+                            <Ionicons
+                                name="chevron-down"
+                                size={12}
+                                color="#305797"
+                                style={ReviewManagementStyles.dropdownIcon}
+                            />
+                        </View>
+                    </View>
+                </View>
 
                 <FlatList
-                    data={filteredReviews}
+                    data={reviews}
                     keyExtractor={item => item.id}
                     renderItem={renderItem}
                     contentContainerStyle={{ paddingBottom: 20 }}
                 />
+
             </View>
 
             <Modal
@@ -182,28 +181,28 @@ export default function ReviewManagement() {
                 onRequestClose={() => { setModalRemoveVisible }}
             >
 
-                <View style={ReviewManagementStyles.modalOverlay}>
-                    <View style={ReviewManagementStyles.modalBox}>
-                        <Text style={ReviewManagementStyles.modalTitle}>Remove Review</Text>
-                        <Text style={ReviewManagementStyles.modalText}>Are you sure you want to remove this review?</Text>
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Remove Review</Text>
+                        <Text style={ModalStyle.modalText}>Are you sure you want to remove this review?</Text>
 
                         <View style={{ flexDirection: "row", marginTop: 10, gap: 20 }}>
                             <TouchableOpacity
-                                style={ReviewManagementStyles.modalButton}
+                                style={ModalStyle.modalButton}
                                 onPress={() => {
                                     removeOk()
                                 }}
                             >
-                                <Text style={ReviewManagementStyles.modalButtonText}>Yes</Text>
+                                <Text style={ModalStyle.modalButtonText}>Yes</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                style={ReviewManagementStyles.modalCancelButton}
+                                style={ModalStyle.modalCancelButton}
                                 onPress={() => {
                                     removeCancel()
                                 }}
                             >
-                                <Text style={ReviewManagementStyles.modalButtonText}>Cancel</Text>
+                                <Text style={ModalStyle.modalButtonText}>Cancel</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -218,18 +217,18 @@ export default function ReviewManagement() {
                 onRequestClose={() => { setModalRemoveOkVisible }}
             >
 
-                <View style={ReviewManagementStyles.modalOverlay}>
-                    <View style={ReviewManagementStyles.modalBox}>
-                        <Text style={ReviewManagementStyles.modalTitle}>Review Removed</Text>
-                        <Text style={ReviewManagementStyles.modalText}>This review has been successfully removed!</Text>
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Review Removed</Text>
+                        <Text style={ModalStyle.modalText}>This review has been successfully removed!</Text>
 
                         <TouchableOpacity
-                            style={ReviewManagementStyles.modalButton}
+                            style={ModalStyle.modalButton}
                             onPress={() => {
                                 removeModalOK()
                             }}
                         >
-                            <Text style={ReviewManagementStyles.modalButtonText}>OK</Text>
+                            <Text style={ModalStyle.modalButtonText}>OK</Text>
                         </TouchableOpacity>
 
                     </View>

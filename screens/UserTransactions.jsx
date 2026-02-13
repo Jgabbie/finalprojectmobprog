@@ -1,6 +1,7 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import UserTransactionStyle from '../styles/UserTransactionStyle'
+import { Ionicons } from "@expo/vector-icons"
 import { useNavigation } from '@react-navigation/native'
 import { useFonts } from '@expo-google-fonts/montserrat'
 import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold } from '@expo-google-fonts/montserrat'
@@ -31,6 +32,37 @@ export default function UserTransactions() {
             <Sidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
             <View style={UserTransactionStyle.container}>
                 <Text style={UserTransactionStyle.title}>My Transactions</Text>
+
+                <View style={UserTransactionStyle.searchRow}>
+                    <View style={UserTransactionStyle.searchBar} >
+                        <Ionicons name="search" size={16} />
+                        <TextInput
+                            style={UserTransactionStyle.searchInput}
+                            placeholder='Search booking reference'
+                            placeholderTextColor="#777"
+                        />
+                    </View>
+                    <View style={UserTransactionStyle.dropdownGroup}>
+                        <View style={UserTransactionStyle.dropdownButton} >
+                            <Text style={UserTransactionStyle.dropdownText} >Status</Text>
+                            <Ionicons
+                                name="chevron-down"
+                                size={12}
+                                color="#305797"
+                                style={UserTransactionStyle.dropdownIcon}
+                            />
+                        </View>
+                        <View style={UserTransactionStyle.dropdownButton} >
+                            <Text style={UserTransactionStyle.dropdownText} >Date</Text>
+                            <Ionicons
+                                name="chevron-down"
+                                size={12}
+                                color="#305797"
+                                style={UserTransactionStyle.dropdownIcon}
+                            />
+                        </View>
+                    </View>
+                </View>
 
                 <View style={UserTransactionStyle.tableHeader}>
                     <Text style={UserTransactionStyle.headerCell}>Ref.</Text>

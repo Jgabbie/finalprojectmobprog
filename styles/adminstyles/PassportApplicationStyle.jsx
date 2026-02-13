@@ -1,23 +1,20 @@
 import { StyleSheet } from "react-native";
 
-
-const ReviewManagementStyles = StyleSheet.create({
+const PassportApplicationsStyle = StyleSheet.create({
 
     container: {
         flex: 1,
-        padding: 16,
-        backgroundColor: "#f5f5f5",
-        paddingHorizontal: 16,
-        paddingTop: 16
+        padding: 20,
+        backgroundColor: "#fff",
     },
     header: {
         fontSize: 22,
         color: "#305797",
-        fontWeight: '700',
-        marginBottom: 16,
+        fontWeight: "bold",
+        marginBottom: 16
     },
     statsContainer: {
-        marginBottom: 20,
+        marginBottom: 20
     },
     statsRow: {
         flexDirection: 'row',
@@ -29,15 +26,52 @@ const ReviewManagementStyles = StyleSheet.create({
         width: '48%',
         padding: 16,
         borderRadius: 10,
-        elevation: 3
+        borderWidth: 1,
+        elevation: 6
     },
     cardValue: {
         fontSize: 20,
-        fontWeight: '700',
+        fontWeight: 'bold'
     },
     cardLabel: {
         marginTop: 4,
         color: '#777'
+    },
+    tableHeader: {
+        flexDirection: "row",
+        backgroundColor: "#305797",
+        paddingVertical: 10,
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8
+    },
+    headerCell: {
+        flex: 1,
+        color: "#fff",
+        fontWeight: "bold",
+        textAlign: "center",
+        fontSize: 14
+    },
+    tableRow: {
+        flexDirection: "row",
+        borderBottomWidth: 1,
+        borderBottomColor: "#ddd",
+        paddingVertical: 12,
+        alignItems: "center",
+        backgroundColor: "#f9f9f9"
+    },
+    tableCell: {
+        flex: 1,
+        textAlign: "center",
+        fontSize: 13,
+        color: "#333"
+    },
+    actionButton: {
+        flex: 1,
+        alignItems: "center"
+    },
+    viewButtonText: {
+        color: "#305797",
+        fontWeight: "bold"
     },
     searchRow: {
         flexDirection: "row",
@@ -80,50 +114,7 @@ const ReviewManagementStyles = StyleSheet.create({
     dropdownIcon: {
         marginLeft: 6
     },
-    sectionTitle: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#305797',
-        marginBottom: 12
-    },
-    reviewCard: {
-        backgroundColor: '#fff',
-        padding: 14,
-        borderRadius: 10,
-        marginBottom: 12,
-        elevation: 2
-    },
-    reviewHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 6
-    },
-    username: {
-        fontWeight: '700',
-        color: '#305797'
-    },
-    package: {
-        fontSize: 12,
-        color: '#555',
-        marginBottom: 6
-    },
-    comment: {
-        fontSize: 13,
-        color: '#333'
-    },
-    removeButton: {
-        marginTop: 10,
-        alignSelf: 'flex-end',
-        backgroundColor: '#9E2847',
-        paddingVertical: 6,
-        paddingHorizontal: 14,
-        borderRadius: 8
-    },
-    removeButtonText: {
-        color: '#fff',
-        fontSize: 12,
-        fontWeight: '600'
-    },
+
 })
 
-export default ReviewManagementStyles
+export default PassportApplicationsStyle

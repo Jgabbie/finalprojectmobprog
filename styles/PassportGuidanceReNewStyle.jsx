@@ -33,6 +33,22 @@ const PassportGuidanceReNewStyle = StyleSheet.create({
         fontSize: 14,
         marginBottom: 6
     },
+    uploadRow: {
+        flexDirection: "row",
+        gap: 10
+    },
+    uploadButton: {
+        backgroundColor: "#305797",
+        borderRadius: 10,
+        height: 20,
+        width: 60,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    uploadButtonText: {
+        color: "#fff",
+        fontSize: 9
+    },
     stepTitle: {
         fontSize: 15,
         fontWeight: "600",

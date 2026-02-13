@@ -1,18 +1,25 @@
-import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, TextInput, Modal } from 'react-native'
 import React, { useState } from 'react'
 import { Ionicons } from "@expo/vector-icons"
 import Header from '../../components/Header'
 import AdminSidebar from '../../components/AdminSidebar'
 import BookingManagementStyle from '../../styles/adminstyles/BookingManagementStyle'
+import ModalStyle from '../../styles/ModalStyle'
 
 
 export default function BookingManagement() {
 
     const [isSidebarVisible, setSidebarVisible] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
+    const [modalOkVisible, setModalOkVisible] = useState(false)
 
     const [bookings, setBookings] = useState([
         { id: "1", ref: "BR-0001", package: "Boracay Tour", pax: "4", date: "09-14-2026", amount: 70000 },
     ])
+
+    const modalOK = () => {
+        setModalOkVisible(false)
+    }
 
     return (
         <View>
@@ -109,7 +116,7 @@ export default function BookingManagement() {
                                 <TouchableOpacity
                                     style={BookingManagementStyle.actionButton}
                                     onPress={() => {
-                                        cs.navigate("bookinginvoice")
+                                        setModalVisible(true)
                                     }}
                                 >
                                     <Text style={BookingManagementStyle.viewButtonText}>Remove</Text>
@@ -120,6 +127,68 @@ export default function BookingManagement() {
                     )}
                 />
             </View>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalVisible}
+                onRequestClose={() => { setModalVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Remove Booking</Text>
+                        <Text style={ModalStyle.modalText}>Are you sure you want to remove this Booking?</Text>
+
+                        <View style={ModalStyle.modalButtonContainer}>
+                            <TouchableOpacity
+                                style={ModalStyle.modalButton}
+                                onPress={() => {
+                                    setModalVisible(false)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Cancel</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={ModalStyle.modalCancelButton}
+                                onPress={() => {
+                                    setModalVisible(false)
+                                    setModalOkVisible(true)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Remove</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalOkVisible}
+                onRequestClose={() => { setModalOkVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Remove Successful</Text>
+                        <Text style={ModalStyle.modalText}>You have removed the booking successfully!</Text>
+
+
+                        <TouchableOpacity
+                            style={ModalStyle.modalButton}
+                            onPress={() => {
+                                modalOK()
+                            }}
+                        >
+                            <Text style={ModalStyle.modalButtonText}>OK</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </View>
+            </Modal>
         </View>
     )
 }

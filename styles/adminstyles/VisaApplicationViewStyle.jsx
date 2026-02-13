@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const VisaDetailsGuidanceStyle = StyleSheet.create({
+const VisaApplicationViewStyle = StyleSheet.create({
     container: {
         padding: 20,
         backgroundColor: "#f9f9f9"
@@ -49,28 +49,16 @@ const VisaDetailsGuidanceStyle = StyleSheet.create({
         color: "#fff",
         fontSize: 9
     },
-    stepTitle: {
-        fontSize: 15,
-        fontWeight: "600",
-        marginTop: 10
-    },
-    stepText: {
-        fontSize: 14,
-        color: "#555",
-        marginBottom: 8
-    },
     backButton: {
         backgroundColor: "#305797",
         paddingVertical: 12,
         borderRadius: 10,
-        marginTop: 10,
         alignItems: "center"
     },
     backText: {
         color: "#fff",
         fontWeight: "600"
     }
-
 })
 
-export default VisaDetailsGuidanceStyle
+export default VisaApplicationViewStyle

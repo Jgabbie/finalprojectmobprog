@@ -1,17 +1,29 @@
-import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, TextInput, Modal } from 'react-native'
 import React, { useState } from 'react'
 import { Ionicons } from "@expo/vector-icons"
 import Header from '../../components/Header'
 import AdminSidebar from '../../components/AdminSidebar'
 import UserManagementStyle from '../../styles/adminstyles/UserManagementStyle'
+import ModalStyle from '../../styles/ModalStyle'
 
 export default function UserManagement() {
 
     const [isSidebarVisible, setSidebarVisible] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
+    const [modalOkVisible, setModalOkVisible] = useState(false)
+
+    const [modalEditVisible, setModalEditVisible] = useState(false)
+    const [modalSaveVisible, setModalSaveVisible] = useState(false)
+    const [modalSaveOkVisible, setModalSaveOkVisible] = useState(false)
+
 
     const [users, setUsers] = useState([
         { id: "1", uNum: "U-0001", username: "juanlanuza", email: "jgl@gmail.com", role: "User" },
     ])
+
+    const modalOK = () => {
+        setModalOkVisible(false)
+    }
 
     return (
         <View>
@@ -97,13 +109,16 @@ export default function UserManagement() {
                             <View>
                                 <TouchableOpacity
                                     style={UserManagementStyle.actionButton}
+                                    onPress={() => {
+                                        setModalEditVisible(true)
+                                    }}
                                 >
                                     <Text style={UserManagementStyle.viewButtonText}>Edit</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={UserManagementStyle.actionButton}
                                     onPress={() => {
-                                        cs.navigate("bookinginvoice")
+                                        setModalVisible(true)
                                     }}
                                 >
                                     <Text style={UserManagementStyle.viewButtonText}>Remove</Text>
@@ -114,6 +129,191 @@ export default function UserManagement() {
                     )}
                 />
             </View>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalVisible}
+                onRequestClose={() => { setModalVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Remove User</Text>
+                        <Text style={ModalStyle.modalText}>Are you sure you want to remove this User?</Text>
+
+                        <View style={ModalStyle.modalButtonContainer}>
+                            <TouchableOpacity
+                                style={ModalStyle.modalButton}
+                                onPress={() => {
+                                    setModalVisible(false)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Cancel</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={ModalStyle.modalCancelButton}
+                                onPress={() => {
+                                    setModalVisible(false)
+                                    setModalOkVisible(true)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Remove</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalOkVisible}
+                onRequestClose={() => { setModalOkVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Remove Successful</Text>
+                        <Text style={ModalStyle.modalText}>You have removed the user successfully!</Text>
+
+
+                        <TouchableOpacity
+                            style={ModalStyle.modalButton}
+                            onPress={() => {
+                                modalOK()
+                            }}
+                        >
+                            <Text style={ModalStyle.modalButtonText}>OK</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalEditVisible}
+                onRequestClose={() => { setModalEditVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBoxEdit}>
+                        <Text style={ModalStyle.modalTitle}>Edit User</Text>
+                        <View>
+                            <Text style={ModalStyle.userLabel}>Username</Text>
+                            <TextInput style={ModalStyle.userInputs}></TextInput>
+
+                            <View style={ModalStyle.fullNameContainer}>
+                                <View>
+                                    <Text style={ModalStyle.userLabel} >First Name</Text>
+                                    <TextInput style={ModalStyle.nameInputs}></TextInput>
+                                </View>
+
+                                <View>
+                                    <Text style={ModalStyle.userLabel}>Last Name</Text>
+                                    <TextInput style={ModalStyle.nameInputs}></TextInput>
+                                </View>
+                            </View>
+
+                            <Text style={ModalStyle.userLabel}>Email</Text>
+                            <TextInput style={ModalStyle.userInputs}></TextInput>
+
+                            <Text style={ModalStyle.userLabel}>Phone Number</Text>
+                            <TextInput style={ModalStyle.userInputs}></TextInput>
+
+                            <Text style={ModalStyle.userLabel}>Role</Text>
+                            <TextInput style={ModalStyle.userInputs}></TextInput>
+                        </View>
+
+                        <View style={ModalStyle.modalButtonContainer}>
+                            <TouchableOpacity
+                                style={ModalStyle.modalEditButton}
+                                onPress={() => {
+                                    setModalSaveVisible(true)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Save Changes</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={ModalStyle.modalCancelButton}
+                                onPress={() => {
+                                    setModalEditVisible(false)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Cancel</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalSaveVisible}
+                onRequestClose={() => { setModalSaveVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Save Changes</Text>
+                        <Text style={ModalStyle.modalText}>Are you sure you want to save these changes?</Text>
+
+                        <View style={ModalStyle.modalButtonContainer}>
+                            <TouchableOpacity
+                                style={ModalStyle.modalButton}
+                                onPress={() => {
+                                    setModalEditVisible(false)
+                                    setModalSaveVisible(false)
+                                    setModalSaveOkVisible(true)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Save</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={ModalStyle.modalCancelButton}
+                                onPress={() => {
+                                    setModalSaveVisible(false)
+                                }}
+                            >
+                                <Text style={ModalStyle.modalButtonText}>Cancel</Text>
+                            </TouchableOpacity>
+
+
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                transparent
+                animationType='fade'
+                visible={modalSaveOkVisible}
+                onRequestClose={() => { setModalSaveOkVisible }}
+            >
+
+                <View style={ModalStyle.modalOverlay}>
+                    <View style={ModalStyle.modalBox}>
+                        <Text style={ModalStyle.modalTitle}>Save Successful</Text>
+                        <Text style={ModalStyle.modalText}>Your changes has been successfully saved!</Text>
+
+
+                        <TouchableOpacity
+                            style={ModalStyle.modalButton}
+                            onPress={() => {
+                                setModalSaveOkVisible(false)
+                            }}
+                        >
+                            <Text style={ModalStyle.modalButtonText}>OK</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </View>
+            </Modal>
 
         </View>
     )

@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import Login from './screens/Login';
 import Signup from './screens/Signup';
 import ResetPassword from './screens/ResetPassword';
@@ -19,20 +20,28 @@ import Packages from './screens/Packages';
 import BookingInvoice from './screens/BookingInvoice';
 import TransactionReceipt from './screens/TransactionReceipt';
 import VisaDetailsGuidance from './screens/VisaDetailsGuidance';
+import VisaProgress from './screens/VisaProgress';
+import PassportProgress from './screens/PassportProgress';
+
 import AdminDashboard from './screens/admin/AdminDashboard';
 import UserManagement from './screens/admin/UserManagement';
 import BookingManagement from './screens/admin/BookingManagement';
 import TransactionManagement from './screens/admin/TransactionManagement';
+import ReviewManagement from './screens/admin/ReviewManagement';
 import CancellationRequests from './screens/admin/CancellationRequests';
-
+import PassportApplications from './screens/admin/PassportApplications';
+import PassportApplicationView from './screens/admin/PassportApplicationView';
+import VisaApplications from './screens/admin/VisaApplications';
+import VisaApplicationView from './screens/admin/VisaApplicationView';
 import Logging from './screens/admin/Logging';
+import Auditing from './screens/admin/Auditing';
 
 
-// import Auditing from './screens/admin/Auditing';
 
-const MyScreen = createNativeStackNavigator()
 
 export default function App() {
+
+  const MyScreen = createNativeStackNavigator()
   return (
     <NavigationContainer>
       <MyScreen.Navigator initialRouteName='admindashboard'>
@@ -50,9 +59,11 @@ export default function App() {
         <MyScreen.Screen name="package-details" component={PackageDetails} options={{ headerShown: false }} />
         <MyScreen.Screen name="visaguidance" component={VisaGuidance} options={{ headerShown: false }} />
         <MyScreen.Screen name="visadetailsguidance" component={VisaDetailsGuidance} options={{ headerShown: false }} />
+        <MyScreen.Screen name="visaprogress" component={VisaProgress} options={{ headerShown: false }} />
         <MyScreen.Screen name="passportguidance" component={PassportGuidance} options={{ headerShown: false }} />
         <MyScreen.Screen name="passportnewguidance" component={PassportGuidanceNew} options={{ headerShown: false }} />
         <MyScreen.Screen name="passportrenewguidance" component={PassportGuidanceReNew} options={{ headerShown: false }} />
+        <MyScreen.Screen name="passportprogress" component={PassportProgress} options={{ headerShown: false }} />
         <MyScreen.Screen name="bookinginvoice" component={BookingInvoice} options={{ headerShown: false }} />
         <MyScreen.Screen name="transactionreceipt" component={TransactionReceipt} options={{ headerShown: false }} />
 
@@ -60,15 +71,15 @@ export default function App() {
         <MyScreen.Screen name="usermanagement" component={UserManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="bookingmanagement" component={BookingManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="transactionmanagement" component={TransactionManagement} options={{ headerShown: false }} />
-        <MyScreen.Screen name="cancellationrequest" component={UserManagement} options={{ headerShown: false }} />
         <MyScreen.Screen name="packagemanagement" component={UserManagement} options={{ headerShown: false }} />
-        <MyScreen.Screen name="reviewmanagement" component={UserManagement} options={{ headerShown: false }} />
-        <MyScreen.Screen name="passportapplications" component={UserManagement} options={{ headerShown: false }} />
-        <MyScreen.Screen name="visaapplications" component={UserManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="reviewmanagement" component={ReviewManagement} options={{ headerShown: false }} />
+        <MyScreen.Screen name="passportapplications" component={PassportApplications} options={{ headerShown: false }} />
+        <MyScreen.Screen name="passportapplicationview" component={PassportApplicationView} options={{ headerShown: false }} />
+        <MyScreen.Screen name="visaapplications" component={VisaApplications} options={{ headerShown: false }} />
+        <MyScreen.Screen name="visaapplicationview" component={VisaApplicationView} options={{ headerShown: false }} />
         <MyScreen.Screen name="cancellationrequests" component={CancellationRequests} options={{ headerShown: false }} />
         <MyScreen.Screen name="logging" component={Logging} options={{ headerShown: false }} />
-
-        {/* <MyScreen.Screen name="auditing" component={Auditing} options={{ headerShown: false }} /> */}
+        <MyScreen.Screen name="auditing" component={Auditing} options={{ headerShown: false }} />
 
       </MyScreen.Navigator>
     </NavigationContainer>

@@ -10,7 +10,11 @@ export default function CancellationRequests() {
     const [isSidebarVisible, setSidebarVisible] = useState(false)
 
     const [cancels, setCancels] = useState([
-        { id: "1", ref: "BR-0001", package: "Boracay Tour", pax: "4", date: "09-14-2026", amount: 70000 },
+        { id: "1", ref: "CR-0001", username: "jlanuza", package: "Boracay Tour", reason: "Emergency", date: "09-14-2026", },
+        { id: "2", ref: "CR-0002", username: "jnssnbau", package: "Japan Tour", reason: "Schedule", date: "09-15-2026", },
+        { id: "3", ref: "CR-0003", username: "marionb", package: "Ilocos Tour", reason: "Emergency", date: "09-16-2026", },
+        { id: "4", ref: "CR-0004", username: "tayshnsn", package: "Korea Tour", reason: "Emergency", date: "09-17-2026", },
+        { id: "5", ref: "CR-0005", username: "jlanuza", package: "El Nido Tour", reason: "Health", date: "10-20-2026", },
     ])
     return (
         <View>
@@ -50,13 +54,13 @@ export default function CancellationRequests() {
                         <Ionicons name="search" size={16} />
                         <TextInput
                             style={CancellationRequestStyle.searchInput}
-                            placeholder='Search ID or username'
+                            placeholder='Search cancel reference'
                             placeholderTextColor="#777"
                         />
                     </View>
                     <View style={CancellationRequestStyle.dropdownGroup}>
                         <View style={CancellationRequestStyle.dropdownButton} >
-                            <Text style={CancellationRequestStyle.dropdownText} >Role</Text>
+                            <Text style={CancellationRequestStyle.dropdownText} >Status</Text>
                             <Ionicons
                                 name="chevron-down"
                                 size={12}
@@ -65,7 +69,7 @@ export default function CancellationRequests() {
                             />
                         </View>
                         <View style={CancellationRequestStyle.dropdownButton} >
-                            <Text style={CancellationRequestStyle.dropdownText} >Status</Text>
+                            <Text style={CancellationRequestStyle.dropdownText} >Date</Text>
                             <Ionicons
                                 name="chevron-down"
                                 size={12}
@@ -77,10 +81,11 @@ export default function CancellationRequests() {
                 </View>
 
                 <View style={CancellationRequestStyle.tableHeader}>
-                    <Text style={CancellationRequestStyle.headerCell}>ID</Text>
+                    <Text style={CancellationRequestStyle.headerCell}>Ref.</Text>
                     <Text style={CancellationRequestStyle.headerCell}>Username</Text>
-                    <Text style={CancellationRequestStyle.headerCell}>Email</Text>
-                    <Text style={CancellationRequestStyle.headerCell}>Role</Text>
+                    <Text style={CancellationRequestStyle.headerCell}>Package</Text>
+                    <Text style={CancellationRequestStyle.headerCell}>Reason</Text>
+                    <Text style={CancellationRequestStyle.headerCell}>Date</Text>
                     <Text style={CancellationRequestStyle.headerCell}>Action</Text>
                 </View>
 
@@ -89,15 +94,16 @@ export default function CancellationRequests() {
                     data={cancels}
                     renderItem={({ item }) => (
                         <View style={CancellationRequestStyle.tableRow}>
-                            <Text style={CancellationRequestStyle.tableCell}>{item.uNum}</Text>
+                            <Text style={CancellationRequestStyle.tableCell}>{item.ref}</Text>
                             <Text style={CancellationRequestStyle.tableCell}>{item.username}</Text>
-                            <Text style={CancellationRequestStyle.tableCell}>{item.email}</Text>
-                            <Text style={CancellationRequestStyle.tableCell}>{item.role}</Text>
+                            <Text style={CancellationRequestStyle.tableCell}>{item.package}</Text>
+                            <Text style={CancellationRequestStyle.tableCell}>{item.reason}</Text>
+                            <Text style={CancellationRequestStyle.tableCell}>{item.date}</Text>
                             <View>
                                 <TouchableOpacity
                                     style={CancellationRequestStyle.actionButton}
                                 >
-                                    <Text style={CancellationRequestStyle.viewButtonText}>Edit</Text>
+                                    <Text style={CancellationRequestStyle.viewButtonText}>Approved</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={CancellationRequestStyle.actionButton}
@@ -105,7 +111,7 @@ export default function CancellationRequests() {
                                         cs.navigate("bookinginvoice")
                                     }}
                                 >
-                                    <Text style={CancellationRequestStyle.viewButtonText}>Remove</Text>
+                                    <Text style={CancellationRequestStyle.viewButtonText}>Denied</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

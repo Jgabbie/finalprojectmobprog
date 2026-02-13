@@ -24,10 +24,35 @@ export default function VisaDetailsGuidance() {
             <View style={VisaDetailsGuidanceStyle.card}>
                 <Text style={VisaDetailsGuidanceStyle.sectionTitle}>Requirements</Text>
                 <Text style={VisaDetailsGuidanceStyle.description}>These are the following requirements that are needed to apply for a passport</Text>
-                <Text style={VisaDetailsGuidanceStyle.listItem}>Passport</Text>
-                <Text style={VisaDetailsGuidanceStyle.listItem}>Visa Applicaton Form</Text>
-                <Text style={VisaDetailsGuidanceStyle.listItem}>PSA Birth Certificate</Text>
-                <Text style={VisaDetailsGuidanceStyle.listItem}>Valid Government Issued ID</Text>
+
+                <View style={VisaDetailsGuidanceStyle.uploadRow}>
+                    <Text style={VisaDetailsGuidanceStyle.listItem}>Passport</Text>
+                    <TouchableOpacity style={VisaDetailsGuidanceStyle.uploadButton}>
+                        <Text style={VisaDetailsGuidanceStyle.uploadButtonText}>Upload</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={VisaDetailsGuidanceStyle.uploadRow}>
+                    <Text style={VisaDetailsGuidanceStyle.listItem}>Visa Applicaton Form</Text>
+                    <TouchableOpacity style={VisaDetailsGuidanceStyle.uploadButton}>
+                        <Text style={VisaDetailsGuidanceStyle.uploadButtonText}>Upload</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={VisaDetailsGuidanceStyle.uploadRow}>
+                    <Text style={VisaDetailsGuidanceStyle.listItem}>PSA Birth Certificate</Text>
+                    <TouchableOpacity style={VisaDetailsGuidanceStyle.uploadButton}>
+                        <Text style={VisaDetailsGuidanceStyle.uploadButtonText}>Upload</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={VisaDetailsGuidanceStyle.uploadRow}>
+                    <Text style={VisaDetailsGuidanceStyle.listItem}>Valid Government Issued ID</Text>
+                    <TouchableOpacity style={VisaDetailsGuidanceStyle.uploadButton}>
+                        <Text style={VisaDetailsGuidanceStyle.uploadButtonText}>Upload</Text>
+                    </TouchableOpacity>
+                </View>
+
             </View>
 
             <View style={VisaDetailsGuidanceStyle.card}>
@@ -57,16 +82,27 @@ export default function VisaDetailsGuidance() {
                     <Text style={VisaDetailsGuidanceStyle.stepText}>Wait for result: The travel agency will contact if the process is complete</Text>
                 </View>
 
-                <TouchableOpacity
-                    style={VisaDetailsGuidanceStyle.backButton}
-                    onPress={() => {
-                        cs.navigate("visaguidance")
-                    }}
-                >
-                    <Text style={VisaDetailsGuidanceStyle.backText}>Back</Text>
-                </TouchableOpacity>
+
 
             </View>
+
+            <TouchableOpacity
+                style={VisaDetailsGuidanceStyle.backButton}
+                onPress={() => {
+                    cs.navigate("visaprogress")
+                }}
+            >
+                <Text style={VisaDetailsGuidanceStyle.backText}>Proceed</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={VisaDetailsGuidanceStyle.backButton}
+                onPress={() => {
+                    cs.navigate("visaguidance")
+                }}
+            >
+                <Text style={VisaDetailsGuidanceStyle.backText}>Back</Text>
+            </TouchableOpacity>
         </View>
     )
 }

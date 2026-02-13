@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import ProgressTracker from "../components/ProgressTracker";
-import styles from "../styles/ProgressTrackerStyles";
 import { useNavigation } from "@react-navigation/native";
+import ProgressTrackerStyles from "../styles/ProgressTrackerStyles";
 
 export default function VisaProgress() {
     const cs = useNavigation()
@@ -31,19 +31,21 @@ export default function VisaProgress() {
     ];
 
     return (
-        <View style={styles.screen}>
-            <Text style={styles.header}>Visa Assistance</Text>
+        <View>
+            <View style={ProgressTrackerStyles.container}>
+                <Text style={ProgressTrackerStyles.header}>Your Progress Tracker</Text>
 
+                <ProgressTracker steps={visaSteps} currentStep={2} />
 
-            <ProgressTracker steps={visaSteps} currentStep={2} />
-
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                    cs.navigate('VisaAssistance')
-                }}>
-                <Text style={styles.buttonText}>Back</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    style={ProgressTrackerStyles.button}
+                    onPress={() => {
+                        cs.navigate('visaguidance')
+                    }}>
+                    <Text style={ProgressTrackerStyles.buttonText}>Back</Text>
+                </TouchableOpacity>
+            </View>
         </View>
+
     );
 }

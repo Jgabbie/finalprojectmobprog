@@ -1,23 +1,23 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { Ionicons } from "@expo/vector-icons";
-import styles from '../styles/ProgressTrackerStyles';
+import ProgressTrackerStyles from '../styles/ProgressTrackerStyles';
 
 export default function ProgressTracker({ steps, currentStep }) {
     return (
-        <View style={styles.container}>
+        <View style={ProgressTrackerStyles.container}>
             {steps.map((step, index) => {
                 const isActive = index === currentStep;
                 const isCompleted = index < currentStep;
 
                 return (
-                    <View key={index} style={styles.stepRow}>
-                        <View style={styles.indicatorColumn}>
+                    <View key={index} style={ProgressTrackerStyles.stepRow}>
+                        <View style={ProgressTrackerStyles.indicatorColumn}>
                             <View
                                 style={[
-                                    styles.circle,
-                                    isCompleted && styles.completedCircle,
-                                    isActive && styles.activeCircle,
+                                    ProgressTrackerStyles.circle,
+                                    isCompleted && ProgressTrackerStyles.completedCircle,
+                                    isActive && ProgressTrackerStyles.activeCircle,
                                 ]}
                             >
                                 {isCompleted && (
@@ -28,8 +28,8 @@ export default function ProgressTracker({ steps, currentStep }) {
                             {index !== steps.length - 1 && (
                                 <View
                                     style={[
-                                        styles.line,
-                                        isCompleted && styles.completedLine,
+                                        ProgressTrackerStyles.line,
+                                        isCompleted && ProgressTrackerStyles.completedLine,
                                     ]}
                                 />
                             )}
@@ -37,12 +37,12 @@ export default function ProgressTracker({ steps, currentStep }) {
 
                         <View
                             style={[
-                                styles.stepCard,
-                                isActive && styles.activeCard,
+                                ProgressTrackerStyles.stepCard,
+                                isActive && ProgressTrackerStyles.activeCard,
                             ]}
                         >
-                            <Text style={styles.stepTitle}>{step.title}</Text>
-                            <Text style={styles.stepDescription}>
+                            <Text style={ProgressTrackerStyles.stepTitle}>{step.title}</Text>
+                            <Text style={ProgressTrackerStyles.stepDescription}>
                                 {step.description}
                             </Text>
                         </View>

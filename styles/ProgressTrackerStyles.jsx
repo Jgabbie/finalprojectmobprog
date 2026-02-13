@@ -1,20 +1,17 @@
-import { StyleSheet } from "react-native";
+import { ScrollViewComponent, StyleSheet } from "react-native";
 
-export default Stylesheet.create({
-    scree: {
-        flex: 1,
-        backgroundColor: "#fff",
-        padding: 16,
-    },
+const ProgressTrackerStyles = StyleSheet.create({
+
     header: {
-        fontsize: 22,
+        fontSize: 22,
         fontWeight: "700",
         color: "#305797",
         marginBottom: 20,
-        textAlign: "center",
     },
     container: {
-        paddingHorizontal: 6,
+        flex: 1,
+        backgroundColor: "#fff",
+        padding: 20,
     },
     stepRow: {
         flexDirection: "row",
@@ -37,7 +34,7 @@ export default Stylesheet.create({
     activeCircle: {
         borderColor: "#305797"
     },
-    completeCircle: {
+    completedCircle: {
         backgroundColor: "#305797",
         borderColor: "#305797"
     },
@@ -59,8 +56,9 @@ export default Stylesheet.create({
     },
     activeCard: {
         backgroundColor: "#fff",
+        borderColor: "#305797",
         borderWidth: 2,
-        backgroundColor: "#305797"
+        backgroundColor: "#f9f9f9"
     },
     stepTitle: {
         fontSize: 15,
@@ -84,3 +82,5 @@ export default Stylesheet.create({
         fontSize: 15
     }
 })
+
+export default ProgressTrackerStyles

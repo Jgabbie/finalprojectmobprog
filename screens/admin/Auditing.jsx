@@ -1,8 +1,8 @@
 import { View, Text, ScrollView, TextInput, FlatList, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import AdminSidebar from '../../components/AdminSidebar'
-import HomeStyle from '../../styles/HomeStyle'
 import AuditingStyles from '../../styles/adminstyles/AuditingStyles'
+import Header from '../../components/Header'
 
 export default function Auditing() {
   const [isSidebarVisible, setSidebarVisible] = useState(false)
@@ -100,23 +100,11 @@ export default function Auditing() {
   )
 
   return (
-    <View style={AuditingStyles.container}>
+    <View style={{ flex: 1 }}>
+      <Header openSidebar={() => { setSidebarVisible(true) }} />
       <AdminSidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
 
-      <View style={HomeStyle.headerContainer}>
-        <TouchableOpacity style={HomeStyle.sideBarButton} onPress={() => setSidebarVisible(true)}>
-          <Image source={require('../../materials/sidebar_btn.png')} style={HomeStyle.sideBarImage} />
-        </TouchableOpacity>
-        <Image source={require('../../materials/mrc_logo2.png')} style={HomeStyle.logo} />
-        <View style={HomeStyle.rightIconsContainer}>
-          <TouchableOpacity style={HomeStyle.bellButton}>
-            <Image source={require('../../materials/bell_icon.png')} style={HomeStyle.bellIcon} />
-          </TouchableOpacity>
-          <Image source={require('../../materials/profile_icon.png')} style={HomeStyle.profileIcon} />
-        </View>
-      </View>
-
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={AuditingStyles.container}>
         <Text style={AuditingStyles.header}>Auditing</Text>
 
         <View style={AuditingStyles.searchRow}>
@@ -135,51 +123,52 @@ export default function Auditing() {
           data={logs}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
-          scrollEnabled={false}
           style={AuditingStyles.table}
         />
 
-        <View style={AuditingStyles.paginationRow}>
-          <View style={AuditingStyles.rowsPerPage}>
-            <Text style={AuditingStyles.rowsText}>Rows per page</Text>
-            <View style={AuditingStyles.rowsPill}>
-              <Text style={AuditingStyles.rowsPillText}>8</Text>
-              <Text style={AuditingStyles.rowsPillText}>v</Text>
+        {/* <View style={AuditingStyles.paginationRow}>
+            <View style={AuditingStyles.rowsPerPage}>
+              <Text style={AuditingStyles.rowsText}>Rows per page</Text>
+              <View style={AuditingStyles.rowsPill}>
+                <Text style={AuditingStyles.rowsPillText}>8</Text>
+                <Text style={AuditingStyles.rowsPillText}>v</Text>
+              </View>
+              <Text style={AuditingStyles.rowsText}>of 67 rows</Text>
             </View>
-            <Text style={AuditingStyles.rowsText}>of 67 rows</Text>
-          </View>
 
-          <View style={AuditingStyles.pageControls}>
-            <TouchableOpacity style={AuditingStyles.pageButton}>
-              <Text style={AuditingStyles.pageButtonText}>{'<<'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={AuditingStyles.pageButton}>
-              <Text style={AuditingStyles.pageButtonText}>{'<'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[AuditingStyles.pageButton, AuditingStyles.pageButtonActive]}>
-              <Text style={[AuditingStyles.pageButtonText, AuditingStyles.pageButtonTextActive]}>1</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={AuditingStyles.pageButton}>
-              <Text style={AuditingStyles.pageButtonText}>2</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={AuditingStyles.pageButton}>
-              <Text style={AuditingStyles.pageButtonText}>3</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={AuditingStyles.pageButton}>
-              <Text style={AuditingStyles.pageButtonText}>...</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={AuditingStyles.pageButton}>
-              <Text style={AuditingStyles.pageButtonText}>10</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={AuditingStyles.pageButton}>
-              <Text style={AuditingStyles.pageButtonText}>{'>'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={AuditingStyles.pageButton}>
-              <Text style={AuditingStyles.pageButtonText}>{'>>'}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
+            <View style={AuditingStyles.pageControls}>
+              <TouchableOpacity style={AuditingStyles.pageButton}>
+                <Text style={AuditingStyles.pageButtonText}>{'<<'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={AuditingStyles.pageButton}>
+                <Text style={AuditingStyles.pageButtonText}>{'<'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[AuditingStyles.pageButton, AuditingStyles.pageButtonActive]}>
+                <Text style={[AuditingStyles.pageButtonText, AuditingStyles.pageButtonTextActive]}>1</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={AuditingStyles.pageButton}>
+                <Text style={AuditingStyles.pageButtonText}>2</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={AuditingStyles.pageButton}>
+                <Text style={AuditingStyles.pageButtonText}>3</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={AuditingStyles.pageButton}>
+                <Text style={AuditingStyles.pageButtonText}>...</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={AuditingStyles.pageButton}>
+                <Text style={AuditingStyles.pageButtonText}>10</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={AuditingStyles.pageButton}>
+                <Text style={AuditingStyles.pageButtonText}>{'>'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={AuditingStyles.pageButton}>
+                <Text style={AuditingStyles.pageButtonText}>{'>>'}</Text>
+              </TouchableOpacity>
+            </View>
+          </View> */}
+
+      </View>
     </View>
+
   )
 }

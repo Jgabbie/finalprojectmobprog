@@ -74,6 +74,8 @@ export default function AdminDashboard() {
                         }}
                     />
 
+                    <Text style={AdminDashboardStyles.sectionTitle}>Recent Bookings</Text>
+
                     <View style={AdminDashboardStyles.tableHeader}>
                         <Text style={AdminDashboardStyles.headerCell}>Ref.</Text>
                         <Text style={AdminDashboardStyles.headerCell}>Package</Text>

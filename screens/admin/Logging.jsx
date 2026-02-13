@@ -101,74 +101,73 @@ export default function Logging() {
   )
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Header openSidebar={() => { setSidebarVisible(true) }} />
       <AdminSidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
-      <View style={LoggingStyles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={LoggingStyles.header}>Logging</Text>
 
-          <View style={LoggingStyles.searchRow}>
-            <TextInput
-              style={LoggingStyles.searchInput}
-              placeholder="Search username and actions..."
-              placeholderTextColor="#777"
-            />
-            <TouchableOpacity style={LoggingStyles.filterButton}>
-              <Text style={LoggingStyles.filterText}>Filter</Text>
-              <Text style={LoggingStyles.filterCaret}>v</Text>
+      <View style={LoggingStyles.container}>
+        <Text style={LoggingStyles.header}>Logging</Text>
+
+        <View style={LoggingStyles.searchRow}>
+          <TextInput
+            style={LoggingStyles.searchInput}
+            placeholder="Search username and actions..."
+            placeholderTextColor="#777"
+          />
+          <TouchableOpacity style={LoggingStyles.filterButton}>
+            <Text style={LoggingStyles.filterText}>Filter</Text>
+            <Text style={LoggingStyles.filterCaret}>v</Text>
+          </TouchableOpacity>
+        </View>
+
+        <FlatList
+          data={logs}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          style={LoggingStyles.table}
+        />
+
+        {/* <View style={LoggingStyles.paginationRow}>
+          <View style={LoggingStyles.rowsPerPage}>
+            <Text style={LoggingStyles.rowsText}>Rows per page</Text>
+            <View style={LoggingStyles.rowsPill}>
+              <Text style={LoggingStyles.rowsPillText}>8</Text>
+              <Text style={LoggingStyles.rowsPillText}>v</Text>
+            </View>
+            <Text style={LoggingStyles.rowsText}>of 67 rows</Text>
+          </View>
+
+          <View style={LoggingStyles.pageControls}>
+            <TouchableOpacity style={LoggingStyles.pageButton}>
+              <Text style={LoggingStyles.pageButtonText}>{'<<'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={LoggingStyles.pageButton}>
+              <Text style={LoggingStyles.pageButtonText}>{'<'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[LoggingStyles.pageButton, LoggingStyles.pageButtonActive]}>
+              <Text style={[LoggingStyles.pageButtonText, LoggingStyles.pageButtonTextActive]}>1</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={LoggingStyles.pageButton}>
+              <Text style={LoggingStyles.pageButtonText}>2</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={LoggingStyles.pageButton}>
+              <Text style={LoggingStyles.pageButtonText}>3</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={LoggingStyles.pageButton}>
+              <Text style={LoggingStyles.pageButtonText}>...</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={LoggingStyles.pageButton}>
+              <Text style={LoggingStyles.pageButtonText}>10</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={LoggingStyles.pageButton}>
+              <Text style={LoggingStyles.pageButtonText}>{'>'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={LoggingStyles.pageButton}>
+              <Text style={LoggingStyles.pageButtonText}>{'>>'}</Text>
             </TouchableOpacity>
           </View>
+        </View> */}
 
-          <FlatList
-            data={logs}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            scrollEnabled={false}
-            style={LoggingStyles.table}
-          />
-
-          <View style={LoggingStyles.paginationRow}>
-            <View style={LoggingStyles.rowsPerPage}>
-              <Text style={LoggingStyles.rowsText}>Rows per page</Text>
-              <View style={LoggingStyles.rowsPill}>
-                <Text style={LoggingStyles.rowsPillText}>8</Text>
-                <Text style={LoggingStyles.rowsPillText}>v</Text>
-              </View>
-              <Text style={LoggingStyles.rowsText}>of 67 rows</Text>
-            </View>
-
-            <View style={LoggingStyles.pageControls}>
-              <TouchableOpacity style={LoggingStyles.pageButton}>
-                <Text style={LoggingStyles.pageButtonText}>{'<<'}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={LoggingStyles.pageButton}>
-                <Text style={LoggingStyles.pageButtonText}>{'<'}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[LoggingStyles.pageButton, LoggingStyles.pageButtonActive]}>
-                <Text style={[LoggingStyles.pageButtonText, LoggingStyles.pageButtonTextActive]}>1</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={LoggingStyles.pageButton}>
-                <Text style={LoggingStyles.pageButtonText}>2</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={LoggingStyles.pageButton}>
-                <Text style={LoggingStyles.pageButtonText}>3</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={LoggingStyles.pageButton}>
-                <Text style={LoggingStyles.pageButtonText}>...</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={LoggingStyles.pageButton}>
-                <Text style={LoggingStyles.pageButtonText}>10</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={LoggingStyles.pageButton}>
-                <Text style={LoggingStyles.pageButtonText}>{'>'}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={LoggingStyles.pageButton}>
-                <Text style={LoggingStyles.pageButtonText}>{'>>'}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
       </View>
     </View>
 

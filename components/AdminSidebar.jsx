@@ -72,7 +72,7 @@ const AdminSidebar = ({ visible, onClose }) => {
                         />
                         <MenuItem title="Review and Ratings" onPress={() => {
                             onClose()
-                            cs.navigate("ratingmanagement")
+                            cs.navigate("reviewmanagement")
                         }}
                         />
                         <MenuItem title="Passport Applications" onPress={() => {
