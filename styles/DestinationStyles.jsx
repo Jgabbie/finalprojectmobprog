@@ -377,6 +377,11 @@ const DestinationStyles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: "#f9fafc",
   },
+  cardOptionSelected: {
+    borderWidth: 2,
+    borderColor: "#305797",
+    backgroundColor: "#f0f6ff"
+  },
   cardOptionTitle: {
     fontSize: 13,
     fontWeight: "700",
@@ -589,8 +594,71 @@ const DestinationStyles = StyleSheet.create({
     height: 1,
     backgroundColor: "DDE3F0",
     marginVertical: 12
+  },
+  wishlistContainer: {
+    paddingHorizontal: 16,
+    marginTop: 10
+  },
+  wishlistButton: {
+    backgroundColor: "#305797",
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center"
+  },
+  wishlistButtonText: {
+    color: "#fff",
+    fontWeight: "semibold"
+  },
+  recentReviewContainer: {
+    backgroundColor: "#f5f5f5",
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 10
+  },
+  userReview: {
+    fontWeight: "semibold"
+  },
+  userStarContainer: {
+    flexDirection: "row",
+    narginVertical: 4
+  },
+  reviewContainer: {
+    backgroundColor: "#ffffff",
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: "#e0e0e0"
+  },
+  reviewTitle: {
+    fontWeight: "semibold",
+    marginBottom: 8
+  },
+  starsContainer: {
+    flexDirection: "row",
+    marginBottom: 10
+  },
+  reviewInput: {
+    borderWidth: 1,
+    borderColor: "ddd",
+    borderRadius: 8,
+    padding: 10,
+    height: 80,
+    textAlignVertical: "top",
+    marginBottom: 10
+  },
+  reviewButton: {
+    backgroundColor: "#305797",
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: "center"
+  },
+  reviewButtonText: {
+    color: "#fff",
+    fontWeight: "semibold"
   }
-
 })
 
 export default DestinationStyles

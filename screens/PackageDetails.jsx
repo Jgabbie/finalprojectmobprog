@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useMemo, useState } from "react"
-import { View, Text, ScrollView, Image, TouchableOpacity, Modal, } from "react-native"
+import { View, Text, ScrollView, Image, TouchableOpacity, Modal, TextInput, } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { Calendar } from "react-native-calendars"
 import DestinationStyles from "../styles/DestinationStyles"
 import Sidebar from "../components/Sidebar"
 import Header from "../components/Header"
 import { UserContext } from "../context/UserContext"
+import ModalStyle from "../styles/ModalStyle"
 
 
 const modalDetails = {
@@ -198,6 +199,9 @@ export default function PackageDetails({ route }) {
   const getData = useContext(UserContext)
   const { setBookings } = getData
 
+  const [modalReviewVisible, setModalReviewVisible] = useState(false)
+  const [modalWishlistVisible, setModalWishlistVisible] = useState(false)
+
   const saveBooking = () => {
     const booking = {
       package: pkg.title,
@@ -296,15 +300,28 @@ export default function PackageDetails({ route }) {
       return
     }
     if (activeModal === "solo") {
-      setActiveModal("travelers")
+      if (soloGrouped === "solo") {
+        setTravelers(defaultTravelers)
+        setActiveModal("addons")
+      } else {
+        setActiveModal("travelers")
+      }
       return
     }
     if (activeModal === "travelers") {
-      setActiveModal(fixedCustom === "custom" ? "customize" : "addons")
+      if (fixedCustom === "custom") {
+        setActiveModal("customize")
+      } else {
+        setActiveModal("addons")
+      }
       return
     }
     if (activeModal === "customize") {
-      setActiveModal("addons")
+      if (fixedCustom === "custom") {
+        setActiveModal("addons")
+      } else {
+        setActiveModal("addons")
+      }
       return
     }
     if (activeModal === "addons") {
@@ -333,7 +350,11 @@ export default function PackageDetails({ route }) {
       return
     }
     if (activeModal === "addons") {
-      setActiveModal(fixedCustom === "custom" ? "customize" : "travelers")
+      if (fixedCustom === "custom") {
+        setActiveModal("customize")
+      } else {
+        setActiveModal(soloGrouped === "solo" ? "solo" : "travelers")
+      }
       return
     }
     if (activeModal === "customize") {
@@ -405,6 +426,21 @@ export default function PackageDetails({ route }) {
     </TouchableOpacity>
   )
 
+  const SelectableCard = ({ selected, onPress, image, title, text }) => (
+    <TouchableOpacity
+      style={[
+        DestinationStyles.cardOption,
+        selected && DestinationStyles.cardOptionSelected
+      ]}
+      onPress={onPress}
+      activeOpacity={0.8}
+    >
+      <Image source={image} style={DestinationStyles.optionImage} />
+      <Text style={DestinationStyles.cardOptionTitle}>{title}</Text>
+      <Text style={DestinationStyles.cardOptionText}>{text}</Text>
+    </TouchableOpacity>
+  )
+
   return (
     <View style={DestinationStyles.detailsContainer}>
       <Header openSidebar={() => { setSidebarVisible(true) }} />
@@ -435,6 +471,25 @@ export default function PackageDetails({ route }) {
               onPress={startAvailability}
             >
               <Text style={DestinationStyles.availabilityText}>Check Availability</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={DestinationStyles.wishlistContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                setModalWishlistVisible(true)
+              }}
+              style={DestinationStyles.wishlistButton}
+            >
+              <Ionicons
+                name={"heart"}
+                size={18}
+                color={"#fff"}
+                style={{ marginRight: 6 }}
+              />
+              <Text style={DestinationStyles.wishlistButtonText}>
+                Add to Wishlist
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -487,6 +542,75 @@ export default function PackageDetails({ route }) {
             </>
           )}
         </View>
+
+        <View style={DestinationStyles.reviewContainer}>
+
+          <View style={DestinationStyles.recentReviewContainer}>
+            <Text style={DestinationStyles.userReview}>
+              Marion Balmonte
+            </Text>
+            <View style={DestinationStyles.userStarContainer}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Ionicons key={star} name="star" size={14} color="#f5a623" />
+              ))}
+            </View>
+
+            <Text>
+              The tour guide is really nice! Everything is organized well. Would book again!
+            </Text>
+          </View>
+
+          <View style={DestinationStyles.recentReviewContainer}>
+            <Text style={DestinationStyles.userReview}>
+              Janssen Bauca
+            </Text>
+            <View style={DestinationStyles.userStarContainer}>
+              {[1, 2, 3].map((star) => (
+                <Ionicons key={star} name="star" size={14} color="#f5a623" />
+              ))}
+            </View>
+
+            <Text>
+              Service could be better.
+            </Text>
+          </View>
+
+
+          <Text style={DestinationStyles.reviewTitle}>
+            Write a Review
+          </Text>
+          <View style={DestinationStyles.starsContainer}>
+            {[1, 2, 3, 4, 5].map((star) => {
+              <TouchableOpacity key={star}>
+                <Ionicons
+                  name="star-outline"
+                  size={22}
+                  color="#f5a623"
+                  style={{ marginRight: 4 }}
+                />
+              </TouchableOpacity>
+            })}
+          </View>
+
+          <TextInput
+            style={DestinationStyles.reviewInput}
+            placeholder="Share your experience..."
+            multiline
+          />
+
+          <TouchableOpacity
+            onPress={() => {
+              setModalReviewVisible(true)
+            }}
+            style={DestinationStyles.reviewButton}
+          >
+            <Text style={DestinationStyles.reviewButtonText}>
+              Submit Review
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+
       </ScrollView>
 
       <Modal visible={activeModal !== null} transparent animationType="fade">
@@ -562,94 +686,65 @@ export default function PackageDetails({ route }) {
 
               {activeModal === "allin" && (
                 <>
-                  <TouchableOpacity
-                    style={DestinationStyles.cardOption}
+                  <SelectableCard
+                    selected={allInLand === "all-in"}
                     onPress={() => setAllInLand("all-in")}
-                  >
-                    <Image
-                      source={{ uri: modalContent.allIn.image }}
-                      style={DestinationStyles.optionImage}
-                    />
-                    <Text style={DestinationStyles.cardOptionTitle}>
-                      {modalContent.allIn.title}
-                    </Text>
-                    <Text style={DestinationStyles.cardOptionText}>{modalContent.allIn.text}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={DestinationStyles.cardOption}
+                    image={modalContent.allIn.image}
+                    title={modalContent.allIn.title}
+                    text={modalContent.allIn.text}
+                  />
+
+                  <SelectableCard
+                    selected={allInLand === "land"}
                     onPress={() => setAllInLand("land")}
-                  >
-                    <Image
-                      source={{ uri: modalContent.land.image }}
-                      style={DestinationStyles.optionImage}
-                    />
-                    <Text style={DestinationStyles.cardOptionTitle}>
-                      {modalContent.land.title}
-                    </Text>
-                    <Text style={DestinationStyles.cardOptionText}>{modalContent.land.text}</Text>
-                  </TouchableOpacity>
+                    image={modalContent.land.image}
+                    title={modalContent.land.title}
+                    text={modalContent.land.text}
+                  />
                 </>
               )}
 
               {activeModal === "fixed" && (
                 <>
-                  <TouchableOpacity
-                    style={DestinationStyles.cardOption}
-                    onPress={() => setFixedCustom("fixed")}
-                  >
-                    <Image
-                      source={{ uri: modalContent.fixed.image }}
-                      style={DestinationStyles.optionImage}
-                    />
-                    <Text style={DestinationStyles.cardOptionTitle}>
-                      {modalContent.fixed.title}
-                    </Text>
-                    <Text style={DestinationStyles.cardOptionText}>{modalContent.fixed.text}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={DestinationStyles.cardOption}
+                  <SelectableCard
+                    selected={fixedCustom === "fixed"}
+                    onPress={() => {
+                      setFixedCustom("fixed")
+                      setAirline(modalContent.customize.airline)
+                      setHotel(modalContent.customize.hotel)
+                    }}
+                    image={modalContent.fixed.image}
+                    title={modalContent.fixed.title}
+                    text={modalContent.fixed.text}
+                  />
+
+                  <SelectableCard
+                    selected={fixedCustom === "custom"}
                     onPress={() => setFixedCustom("custom")}
-                  >
-                    <Image
-                      source={{ uri: modalContent.custom.image }}
-                      style={DestinationStyles.optionImage}
-                    />
-                    <Text style={DestinationStyles.cardOptionTitle}>
-                      {modalContent.custom.title}
-                    </Text>
-                    <Text style={DestinationStyles.cardOptionText}>{modalContent.custom.text}</Text>
-                  </TouchableOpacity>
+                    image={modalContent.custom.image}
+                    title={modalContent.custom.title}
+                    text={modalContent.custom.text}
+                  />
                 </>
               )}
 
               {activeModal === "solo" && (
                 <>
-                  <TouchableOpacity
-                    style={DestinationStyles.cardOption}
+                  <SelectableCard
+                    selected={soloGrouped === "solo"}
                     onPress={() => setSoloGrouped("solo")}
-                  >
-                    <Image
-                      source={{ uri: modalContent.solo.image }}
-                      style={DestinationStyles.optionImage}
-                    />
-                    <Text style={DestinationStyles.cardOptionTitle}>
-                      {modalContent.solo.title}
-                    </Text>
-                    <Text style={DestinationStyles.cardOptionText}>{modalContent.solo.text}</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={DestinationStyles.cardOption}
+                    image={modalContent.solo.image}
+                    title={modalContent.solo.title}
+                    text={modalContent.solo.text}
+                  />
+
+                  <SelectableCard
+                    selected={soloGrouped === "group"}
                     onPress={() => setSoloGrouped("group")}
-                  >
-                    <Image
-                      source={{ uri: modalContent.group.image }}
-                      style={DestinationStyles.optionImage}
-                    />
-                    <Text style={DestinationStyles.cardOptionTitle}>
-                      {modalContent.group.title}
-                    </Text>
-                    <Text style={DestinationStyles.cardOptionText}>{modalContent.group.text}</Text>
-                  </TouchableOpacity>
+                    image={modalContent.group.image}
+                    title={modalContent.group.title}
+                    text={modalContent.group.text}
+                  />
                 </>
               )}
 
@@ -926,6 +1021,60 @@ export default function PackageDetails({ route }) {
           </View>
         </View>
       </Modal>
+
+      <Modal
+        transparent
+        animationType='fade'
+        visible={modalWishlistVisible}
+        onRequestClose={() => { setModalWishlistVisible }}
+      >
+
+        <View style={ModalStyle.modalOverlay}>
+          <View style={ModalStyle.modalBox}>
+            <Text style={ModalStyle.modalTitle}>Added to Wishlist</Text>
+            <Text style={ModalStyle.modalText}>Package has been added to Wishlist!</Text>
+
+
+            <TouchableOpacity
+              style={ModalStyle.modalButton}
+              onPress={() => {
+                setModalWishlistVisible(false)
+              }}
+            >
+              <Text style={ModalStyle.modalButtonText}>OK</Text>
+            </TouchableOpacity>
+
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        transparent
+        animationType='fade'
+        visible={modalReviewVisible}
+        onRequestClose={() => { setModalReviewVisible }}
+      >
+
+        <View style={ModalStyle.modalOverlay}>
+          <View style={ModalStyle.modalBox}>
+            <Text style={ModalStyle.modalTitle}>Review Submitted</Text>
+            <Text style={ModalStyle.modalText}>You have reviewed this package successfully!</Text>
+
+
+            <TouchableOpacity
+              style={ModalStyle.modalButton}
+              onPress={() => {
+                setModalReviewVisible(false)
+              }}
+            >
+              <Text style={ModalStyle.modalButtonText}>OK</Text>
+            </TouchableOpacity>
+
+          </View>
+        </View>
+      </Modal>
+
+
     </View>
   )
 }
