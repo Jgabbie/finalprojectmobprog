@@ -51,6 +51,40 @@ const ChatbotStyle = StyleSheet.create({
         fontSize: 18,
         fontFamily: 'Montserrat_500Medium',
         color: "#305797"
+    },
+    inputContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderTopWidth: 1,
+        borderTopColor: "#ccc",
+        paddingVertical: 8,
+        paddingHorizontal: 5,
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: "#fff"
+    },
+    chatInput: {
+        flex: 1,
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 20,
+        paddingHorizontal: 15,
+        paddingVertical: 8,
+        marginRight: 8,
+        fontSize: 14
+    },
+    sendButton: {
+        backgroundColor: "#305797",
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 20
+    },
+    sendButtonText: {
+        color: "#fff",
+        fontWeight: "bold",
+        fontSize: 14
     }
 })
 

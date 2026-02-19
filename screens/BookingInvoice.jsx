@@ -8,7 +8,7 @@ export default function BookingInvoice() {
 
     return (
         <View style={BookingInvoiceStyle.container}>
-            <Text style={BookingInvoiceStyle.title}>BookingInvoice</Text>
+            <Text style={BookingInvoiceStyle.title}>Booking Invoice</Text>
             <View style={BookingInvoiceStyle.card}>
                 <View style={BookingInvoiceStyle.header}>
                     <Image style={BookingInvoiceStyle.logo} source={require("../assets/images/logo.png")} />
@@ -40,6 +40,13 @@ export default function BookingInvoice() {
                     <Text style={BookingInvoiceStyle.companyDetailsText}>m&rc@travels.com</Text>
                 </View>
             </View>
+
+            <TouchableOpacity
+                style={BookingInvoiceStyle.button}
+            >
+                <Text style={BookingInvoiceStyle.buttonText}>Download PDF</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
                 style={BookingInvoiceStyle.button}
                 onPress={() => {

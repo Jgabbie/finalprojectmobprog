@@ -78,6 +78,10 @@ const SignupStyle = StyleSheet.create({
         color: "#fff",
         fontSize: 16,
         fontFamily: "Roboto_500Medium"
+    },
+    errorMessage: {
+        color: "#ff1616",
+        marginLeft: 20
     }
 })
 

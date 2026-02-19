@@ -1,5 +1,5 @@
 import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import UserTransactionStyle from '../styles/UserTransactionStyle'
 import { Ionicons } from "@expo/vector-icons"
 import { useNavigation } from '@react-navigation/native'
@@ -8,11 +8,15 @@ import { Montserrat_400Regular, Montserrat_500Medium, Montserrat_700Bold } from 
 import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-google-fonts/roboto'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
+import { UserContext } from '../context/UserContext'
 
 export default function UserTransactions() {
 
     const cs = useNavigation()
     const [isSidebarVisible, setSidebarVisible] = useState(false)
+
+    const getData = useContext(UserContext)
+    const { bookings } = getData
 
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
@@ -22,6 +26,16 @@ export default function UserTransactions() {
         Roboto_500Medium,
         Roboto_700Bold
     })
+
+    const transactions = bookings.map((element, index) => ({
+        id: (index + 1).toString(),
+        ref: "TR-000" + (index + 1),
+        package: element.package,
+        pax: element.totalTravelers,
+        amount: element.price,
+        date: element.date,
+        status: "Paid"
+    }))
 
     const [transac, setTransac] = useState([
         { id: "1", ref: "TR-0001", package: "Boracay Tour", status: "Paid", date: "09-14-2026", amount: 70000 },
@@ -69,13 +83,13 @@ export default function UserTransactions() {
                     <Text style={UserTransactionStyle.headerCell}>Package</Text>
                     <Text style={UserTransactionStyle.headerCell}>Status</Text>
                     <Text style={UserTransactionStyle.headerCell}>Date</Text>
-                    <Text style={UserTransactionStyle.headerCell}>Ammount</Text>
+                    <Text style={UserTransactionStyle.headerCell}>Amount</Text>
                     <Text style={UserTransactionStyle.headerCell}>Action</Text>
                 </View>
 
                 <FlatList
                     keyExtractor={(item) => item.id}
-                    data={transac}
+                    data={transactions}
                     renderItem={({ item }) => (
                         <View style={UserTransactionStyle.tableRow}>
                             <Text style={UserTransactionStyle.tableCell}>{item.ref}</Text>

@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import ChatbotStyle from '../styles/ChatbotStyle'
 
 export default function Chatbot() {
     const [chatbotOpen, setChatbotOpen] = useState(false)
+    const [message, setMessage] = useState("")
 
     return (
         <>
@@ -26,6 +27,24 @@ export default function Chatbot() {
                                 onPress={() => { setChatbotOpen(false) }}
                             >
                                 <Text style={{ color: "#00000" }}>X</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={ChatbotStyle.inputContainer}>
+                            <TextInput
+                                style={ChatbotStyle.chatInput}
+                                placeholder='Type a message...'
+                                value={message}
+                                onChangeText={setMessage}
+                            />
+
+                            <TouchableOpacity
+                                style={ChatbotStyle.sendButton}
+                                onPress={() => {
+                                    setMessage("")
+                                }}
+                            >
+                                <Text style={ChatbotStyle.sendButtonText}>Send</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

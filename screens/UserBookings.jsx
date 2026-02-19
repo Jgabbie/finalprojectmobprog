@@ -90,7 +90,7 @@ export default function UserBookings() {
                     <Text style={UserBookingsStyle.headerCell}>Package</Text>
                     <Text style={UserBookingsStyle.headerCell}>Pax</Text>
                     <Text style={UserBookingsStyle.headerCell}>Date</Text>
-                    <Text style={UserBookingsStyle.headerCell}>Ammount</Text>
+                    <Text style={UserBookingsStyle.headerCell}>Amount</Text>
                     <Text style={UserBookingsStyle.headerCell}>Action</Text>
                 </View>
 

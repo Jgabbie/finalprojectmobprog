@@ -1,12 +1,24 @@
 import { View, Text, FlatList, TouchableOpacity, TextInput, Modal } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Ionicons } from "@expo/vector-icons"
 import Header from '../../components/Header'
 import AdminSidebar from '../../components/AdminSidebar'
 import UserManagementStyle from '../../styles/adminstyles/UserManagementStyle'
 import ModalStyle from '../../styles/ModalStyle'
+import { UserContext } from '../../context/UserContext'
 
 export default function UserManagement() {
+
+    const getData = useContext(UserContext)
+    const { getUsers } = getData
+
+    const allUsers = getUsers.map((element, index) => ({
+        id: (index + 1).toString(),
+        uNum: "U-000" + (index + 1),
+        username: element.username,
+        email: element.email,
+        role: "User"
+    }))
 
     const [isSidebarVisible, setSidebarVisible] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
@@ -17,7 +29,7 @@ export default function UserManagement() {
     const [modalSaveOkVisible, setModalSaveOkVisible] = useState(false)
 
 
-    const [users, setUsers] = useState([
+    const [getAllUsers, setAllUsers] = useState([
         { id: "1", uNum: "U-0001", username: "juanlanuza", email: "jgl@gmail.com", role: "User" },
     ])
 
@@ -99,7 +111,7 @@ export default function UserManagement() {
 
                 <FlatList
                     keyExtractor={(item) => item.id}
-                    data={users}
+                    data={allUsers}
                     renderItem={({ item }) => (
                         <View style={UserManagementStyle.tableRow}>
                             <Text style={UserManagementStyle.tableCell}>{item.uNum}</Text>

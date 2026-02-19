@@ -16,7 +16,7 @@ export default function AdminDashboard() {
             <Header openSidebar={() => { setSidebarVisible(true) }} />
             <AdminSidebar visible={isSidebarVisible} onClose={() => setSidebarVisible(false)} />
             <View style={AdminDashboardStyles.container}>
-                <Text style={AdminDashboardStyles.header}>AdminDashboard</Text>
+                <Text style={AdminDashboardStyles.header}>Admin Dashboard</Text>
                 <View style={AdminDashboardStyles.statsContainer}>
                     <View style={AdminDashboardStyles.statsRow}>
                         <View style={AdminDashboardStyles.card}>

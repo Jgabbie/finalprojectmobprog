@@ -83,7 +83,7 @@ export default function PassportGuidanceReNew() {
                         </View>
 
                         <View >
-                            <Text style={PassportGuidanceReNewStyle.stepTitle}>Step 6</Text>
+                            <Text style={PassportGuidanceReNewStyle.stepTitle}>Step 4</Text>
                             <Text style={PassportGuidanceReNewStyle.stepText}>Appear at the DFA Office: Arrive at your chosen DFA office on your scheduled date and time</Text>
                         </View>
 

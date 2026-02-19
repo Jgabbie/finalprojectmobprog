@@ -1,16 +1,30 @@
 import { View, Text, FlatList, TouchableOpacity, TextInput, Modal } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Ionicons } from "@expo/vector-icons"
 import Header from '../../components/Header'
 import AdminSidebar from '../../components/AdminSidebar'
 import TransactionManagementStyle from '../../styles/adminstyles/TransactionManagementStyle'
 import ModalStyle from '../../styles/ModalStyle'
+import { UserContext } from '../../context/UserContext'
 
 export default function TransactionManagement() {
+
+    const getData = useContext(UserContext)
+    const { bookings } = getData
 
     const [isSidebarVisible, setSidebarVisible] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const [modalOkVisible, setModalOkVisible] = useState(false)
+
+    const transactions = bookings.map((element, index) => ({
+        id: (index + 1).toString(),
+        ref: "TR-000" + (index + 1),
+        package: element.package,
+        pax: element.totalTravelers,
+        amount: element.price,
+        date: element.date,
+        status: "Paid"
+    }))
 
     const [transac, setTransac] = useState([
         { id: "1", ref: "TR-0001", package: "Boracay Tour", status: "Paid", date: "09-14-2026", amount: 70000 },
@@ -89,13 +103,13 @@ export default function TransactionManagement() {
                     <Text style={TransactionManagementStyle.headerCell}>Package</Text>
                     <Text style={TransactionManagementStyle.headerCell}>Status</Text>
                     <Text style={TransactionManagementStyle.headerCell}>Date</Text>
-                    <Text style={TransactionManagementStyle.headerCell}>Ammount</Text>
+                    <Text style={TransactionManagementStyle.headerCell}>Amount</Text>
                     <Text style={TransactionManagementStyle.headerCell}>Action</Text>
                 </View>
 
                 <FlatList
                     keyExtractor={(item) => item.id}
-                    data={transac}
+                    data={transactions}
                     renderItem={({ item }) => (
                         <View style={TransactionManagementStyle.tableRow}>
                             <Text style={TransactionManagementStyle.tableCell}>{item.ref}</Text>

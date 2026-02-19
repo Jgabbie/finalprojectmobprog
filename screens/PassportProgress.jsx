@@ -33,7 +33,7 @@ export default function PassportProgress() {
     return (
         <View>
             <View style={ProgressTrackerStyles.container}>
-                <Text style={ProgressTrackerStyles.header}>Passport Assistance</Text>
+                <Text style={ProgressTrackerStyles.header}>Passport Progress Tracker</Text>
 
                 <ProgressTracker steps={passportSteps} currentStep={1} />
 

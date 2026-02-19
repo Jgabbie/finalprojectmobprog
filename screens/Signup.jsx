@@ -25,6 +25,7 @@ export default function Signup() {
     const { setUsers, getUsers } = getData
 
     const [modalVisible, setModalVisible] = useState(false)
+    const [getError, setError] = useState("")
 
     const [fontsLoaded] = useFonts({
         Montserrat_400Regular,
@@ -54,13 +55,18 @@ export default function Signup() {
     const handleSignup = () => {
         const existingUserName = getUsers.filter((element, index) => { return element.username === user.username })
 
+        if (user.username === "" || user.firstname === "" || user.lastname === "" || user.email === "" || user.phonenum === "" || user.password === "" || user.confirmpassword === "") {
+            setError("Fill up the fields")
+            return
+        }
+
         if (existingUserName.length > 0) {
-            console.log("Username already exists")
+            setError("Username already exists")
             return
         }
 
         if (user.password !== user.confirmpassword) {
-            console.log("Passowrd and Confirm Password are not matching")
+            setError("Passowrd and Confirm Password are not matching")
             return
         }
 
@@ -80,31 +86,33 @@ export default function Signup() {
                 <Text style={SignupStyle.signupSecondHeading}>Create an Account</Text>
 
                 <Text style={SignupStyle.signupLabel}>Username</Text>
-                <TextInput style={SignupStyle.signupInputs} onChangeText={(e) => { changeHandler("username", e) }}></TextInput>
+                <TextInput maxLength={30} style={SignupStyle.signupInputs} onChangeText={(e) => { changeHandler("username", e) }}></TextInput>
 
                 <View style={SignupStyle.fullNameContainer}>
                     <View>
                         <Text style={SignupStyle.signupLabel} >First Name</Text>
-                        <TextInput style={SignupStyle.nameInputs} onChangeText={(e) => { changeHandler("firstname", e) }}></TextInput>
+                        <TextInput maxLength={20} style={SignupStyle.nameInputs} onChangeText={(e) => { changeHandler("firstname", e) }}></TextInput>
                     </View>
 
                     <View>
                         <Text style={SignupStyle.signupLabel}>Last Name</Text>
-                        <TextInput style={SignupStyle.nameInputs} onChangeText={(e) => { changeHandler("lastname", e) }}></TextInput>
+                        <TextInput maxLength={20} style={SignupStyle.nameInputs} onChangeText={(e) => { changeHandler("lastname", e) }}></TextInput>
                     </View>
                 </View>
 
                 <Text style={SignupStyle.signupLabel}>Email</Text>
-                <TextInput style={SignupStyle.signupInputs} onChangeText={(e) => { changeHandler("email", e) }}></TextInput>
+                <TextInput maxLength={30} style={SignupStyle.signupInputs} onChangeText={(e) => { changeHandler("email", e) }}></TextInput>
 
                 <Text style={SignupStyle.signupLabel}>Phone Number</Text>
-                <TextInput style={SignupStyle.signupInputs} onChangeText={(e) => { changeHandler("phonenum", e) }}></TextInput>
+                <TextInput maxLength={11} style={SignupStyle.signupInputs} onChangeText={(e) => { changeHandler("phonenum", e) }}></TextInput>
 
                 <Text style={SignupStyle.signupLabel}>Password</Text>
-                <TextInput style={SignupStyle.signupInputs} secureTextEntry={true} onChangeText={(e) => { changeHandler("password", e) }}></TextInput>
+                <TextInput maxLength={20} style={SignupStyle.signupInputs} secureTextEntry={true} onChangeText={(e) => { changeHandler("password", e) }}></TextInput>
 
                 <Text style={SignupStyle.signupLabel}>Confirm Password</Text>
-                <TextInput style={SignupStyle.signupInputs} secureTextEntry={true} onChangeText={(e) => { changeHandler("confirmpassword", e) }}></TextInput>
+                <TextInput maxLength={20} style={SignupStyle.signupInputs} secureTextEntry={true} onChangeText={(e) => { changeHandler("confirmpassword", e) }}></TextInput>
+
+                <Text style={SignupStyle.errorMessage}>{getError}</Text>
 
                 <View style={SignupStyle.signupLinksContainer}>
                     <Text onPress={() => { cs.navigate("login") }} style={SignupStyle.signupLinks}>Already have an account? Login here</Text>

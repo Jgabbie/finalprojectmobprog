@@ -25,19 +25,23 @@ export default function Login() {
 
     const [getUsername, setUsername] = useState("")
     const [getPassword, setPassword] = useState("")
+    const [getError, setError] = useState("")
 
     const loginUser = () => {
-        getUsers.filter((element, index) => {
-            if (element.username === getUsername && element.password === getPassword) {
-                setCurrentUser(getUsername)
-                console.log("Login Successful")
-                cs.navigate("home")
-            } else {
-                return console.log("Not Successful")
-            }
-        })
-    }
+        const matchedUsers = getUsers.filter((element, index) =>
+            element.username === getUsername && element.password === getPassword
+        )
 
+        console.log(matchedUsers)
+
+        if (matchedUsers.length > 0) {
+            setCurrentUser(matchedUsers[0].username)
+            setError("")
+            cs.navigate("admindashboard")
+        } else {
+            setError("Invalid Username or Password")
+        }
+    }
 
 
     return (
@@ -55,6 +59,8 @@ export default function Login() {
 
                 <Text style={LoginStyle.loginLabel}>Password</Text>
                 <TextInput style={LoginStyle.loginInputs} onChangeText={(e) => { setPassword(e) }} secureTextEntry={true}></TextInput>
+
+                <Text style={LoginStyle.errorMessage}>{getError}</Text>
 
                 <View style={LoginStyle.loginLinksContainer}>
                     <Text onPress={() => { cs.navigate("signup") }} style={LoginStyle.loginLinks}>Don't have an account? Signup here</Text>

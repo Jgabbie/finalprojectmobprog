@@ -1,19 +1,32 @@
 import { View, Text, FlatList, TouchableOpacity, TextInput, Modal } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Ionicons } from "@expo/vector-icons"
 import Header from '../../components/Header'
 import AdminSidebar from '../../components/AdminSidebar'
 import BookingManagementStyle from '../../styles/adminstyles/BookingManagementStyle'
 import ModalStyle from '../../styles/ModalStyle'
+import { UserContext } from '../../context/UserContext'
 
 
 export default function BookingManagement() {
+
+    const getData = useContext(UserContext)
+    const { bookings } = getData
 
     const [isSidebarVisible, setSidebarVisible] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const [modalOkVisible, setModalOkVisible] = useState(false)
 
-    const [bookings, setBookings] = useState([
+    const mybookings = bookings.map((element, index) => ({
+        id: (index + 1).toString(),
+        ref: "BR-000" + (index + 1),
+        package: element.package,
+        pax: element.totalTravelers,
+        amount: element.price,
+        date: element.date
+    }))
+
+    const [getbookings, setBookings] = useState([
         { id: "1", ref: "BR-0001", package: "Boracay Tour", pax: "4", date: "09-14-2026", amount: 70000 },
     ])
 
@@ -90,13 +103,13 @@ export default function BookingManagement() {
                     <Text style={BookingManagementStyle.headerCell}>Package</Text>
                     <Text style={BookingManagementStyle.headerCell}>Pax</Text>
                     <Text style={BookingManagementStyle.headerCell}>Date</Text>
-                    <Text style={BookingManagementStyle.headerCell}>Ammount</Text>
+                    <Text style={BookingManagementStyle.headerCell}>Amount</Text>
                     <Text style={BookingManagementStyle.headerCell}>Action</Text>
                 </View>
 
                 <FlatList
                     keyExtractor={(item) => item.id}
-                    data={bookings}
+                    data={mybookings}
                     renderItem={({ item }) => (
                         <View style={BookingManagementStyle.tableRow}>
                             <Text style={BookingManagementStyle.tableCell}>{item.ref}</Text>
